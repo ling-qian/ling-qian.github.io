@@ -5,453 +5,986 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>零骞 · AI 研发工程师 — 在线简历</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
-<link href="https://fonts.googleapis.com/css2?family=Inter:opsz@14..32&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
 <style>
-  /* ─── Reset & Variables ─── */
-  *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
-  :root {
-    --surface: #f7f8fa;
-    --card: #ffffff;
-    --text: #1b1f23;
-    --text-secondary: #586069;
-    --text-tertiary: #959da5;
-    --border: #e1e4e8;
-    --accent: #0969da;
-    --accent-light: #ddf4ff;
-    --green: #1a7f37;
-    --green-bg: #dafbe1;
-    --orange: #9a6700;
-    --orange-bg: #fff8c5;
-    --purple: #8250df;
-    --purple-bg: #fbefff;
-    --radius: 8px;
-    --shadow: 0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.04);
-  }
-  html { font-size: 15px; }
-  body {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    background: var(--surface);
-    color: var(--text);
-    line-height: 1.6;
-    -webkit-font-smoothing: antialiased;
-  }
-  a { color: var(--accent); text-decoration: none; }
-  a:hover { text-decoration: underline; }
+/* ─── Reset & Variables ─── */
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+:root {
+ --surface: #0d1117;
+ --surface-2: #161b22;
+ --card: #1c2128;
+ --card-hover: #22272e;
+ --text: #e6edf3;
+ --text-secondary: #8b949e;
+ --text-tertiary: #6e7681;
+ --border: #30363d;
+ --accent: #58a6ff;
+ --accent-glow: rgba(88,166,255,.25);
+ --green: #3fb950;
+ --green-bg: rgba(63,185,80,.12);
+ --orange: #d29922;
+ --orange-bg: rgba(210,153,34,.12);
+ --purple: #bc8cff;
+ --purple-bg: rgba(188,140,255,.12);
+ --red: #f85149;
+ --cyan: #39d353;
+ --radius: 12px;
+ --shadow: 0 2px 8px rgba(0,0,0,.3);
+ --transition: .3s cubic-bezier(.4,0,.2,1);
+}
+html { scroll-behavior: smooth; font-size: 15px; }
+body {
+ font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+ background: var(--surface);
+ color: var(--text);
+ line-height: 1.65;
+ -webkit-font-smoothing: antialiased;
+ overflow-x: hidden;
+}
+a { color: var(--accent); text-decoration: none; transition: color var(--transition); }
+a:hover { color: #79c0ff; text-decoration: underline; }
+code, .mono { font-family: 'JetBrains Mono', monospace; }
 
-  /* ─── Layout ─── */
-  .page { max-width: 960px; margin: 0 auto; padding: 32px 20px 60px; }
+/* ─── Scrollbar ─── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--surface); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
 
-  /* ─── Header ─── */
-  .header {
-    background: var(--card);
-    border-radius: var(--radius);
-    box-shadow: var(--shadow);
-    padding: 32px 36px;
-    margin-bottom: 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 24px;
-    flex-wrap: wrap;
-  }
-  .header-main h1 { font-size: 1.8rem; font-weight: 700; letter-spacing: -.02em; }
-  .header-main .title { font-size: 1rem; color: var(--text-secondary); margin: 2px 0 6px; }
-  .header-main .tagline { font-size: 0.9rem; color: var(--text-tertiary); }
-  .header-meta { text-align: right; font-size: 0.88rem; color: var(--text-secondary); line-height: 1.8; white-space: nowrap; }
+/* ─── Particle Canvas ─── */
+#particles { position: fixed; top:0; left:0; width:100%; height:100%; z-index:0; pointer-events:none; }
 
-  /* ─── Card ─── */
-  .card {
-    background: var(--card);
-    border-radius: var(--radius);
-    box-shadow: var(--shadow);
-    padding: 28px 36px;
-    margin-bottom: 16px;
-  }
-  .card-title {
-    font-size: 0.82rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: .05em;
-    color: var(--text-tertiary);
-    margin-bottom: 16px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-  .card-title::after {
-    content: '';
-    flex: 1;
-    height: 1px;
-    background: var(--border);
-  }
+/* ─── Page Layout ─── */
+.page { position: relative; z-index:1; max-width: 980px; margin: 0 auto; padding: 40px 24px 80px; }
 
-  /* ─── Badge / Tag ─── */
-  .tag { display: inline-block; background: #f3f4f6; color: var(--text-secondary); padding: 2px 10px; border-radius: 20px; font-size: 0.78rem; margin: 2px 3px; }
-  .tag-blue { background: var(--accent-light); color: var(--accent); }
-  .tag-green { background: var(--green-bg); color: var(--green); }
-  .tag-purple { background: var(--purple-bg); color: var(--purple); }
-  .tag-orange { background: var(--orange-bg); color: var(--orange); }
+/* ─── Nav ─── */
+.nav {
+ position: sticky; top:0; z-index:100;
+ background: rgba(13,17,23,.85);
+ backdrop-filter: blur(16px);
+ border-bottom: 1px solid var(--border);
+ padding: 12px 24px;
+ margin: 0 -24px 32px;
+ display: flex; gap: 24px; align-items: center;
+ font-size: .88rem;
+}
+.nav a { color: var(--text-secondary); transition: color var(--transition); position: relative; }
+.nav a:hover { color: var(--text); text-decoration:none; }
+.nav a::after { content:''; position:absolute; bottom:-2px; left:0; width:0; height:2px; background:var(--accent); transition: width var(--transition); }
+.nav a:hover::after { width:100%; }
+.nav-logo { font-weight:700; color:var(--accent); margin-right:auto; font-size:.95rem; letter-spacing:-.02em; }
 
-  /* ─── Timeline ─── */
-  .timeline { }
-  .timeline-item { position: relative; padding: 0 0 20px 24px; border-left: 2px solid var(--border); }
-  .timeline-item:last-child { padding-bottom: 0; border-left-color: transparent; }
-  .timeline-item::before { content: ''; position: absolute; left: -5px; top: 6px; width: 8px; height: 8px; border-radius: 50%; background: var(--accent); border: 2px solid var(--card); }
-  .timeline-item h3 { font-size: 0.95rem; font-weight: 600; }
-  .timeline-item .meta { font-size: 0.82rem; color: var(--text-tertiary); margin: 0 0 6px; }
-  .timeline-item p { font-size: 0.9rem; color: var(--text-secondary); }
-  .timeline-item ul { margin: 6px 0 0 16px; }
-  .timeline-item li { font-size: 0.88rem; color: var(--text-secondary); margin-bottom: 4px; list-style: disc; }
+/* ─── Lang Toggle ─── */
+.lang-toggle {
+ display:inline-flex; align-items:center; gap:0;
+ background: var(--surface-2); border:1px solid var(--border);
+ border-radius: 20px; overflow:hidden; font-size:.78rem; cursor:pointer;
+ user-select:none; margin-left:auto; flex-shrink:0;
+}
+.lang-btn {
+ padding:4px 12px; color:var(--text-tertiary); transition: all .2s;
+ border:none; background:transparent; cursor:pointer; font-size:.78rem;
+ font-family:inherit;
+}
+.lang-btn.active {
+ background:var(--accent); color:var(--surface); font-weight:600;
+}
+.lang-btn:hover:not(.active) { color:var(--text); }
 
-  /* ─── Grid ─── */
-  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
-  .grid-item {
-    background: var(--surface);
-    border-radius: var(--radius);
-    padding: 14px 16px;
-    transition: box-shadow .15s;
-  }
-  .grid-item:hover { box-shadow: 0 2px 8px rgba(0,0,0,.06); }
-  .grid-item strong { font-size: 0.9rem; display: block; margin-bottom: 2px; }
-  .grid-item p { font-size: 0.82rem; color: var(--text-secondary); }
+/* ─── Header / Hero ─── */
+.hero {
+ background: linear-gradient(135deg, var(--card) 0%, var(--surface-2) 100%);
+ border: 1px solid var(--border);
+ border-radius: var(--radius);
+ padding: 48px 44px;
+ margin-bottom: 24px;
+ position: relative;
+ overflow: hidden;
+}
+.hero::before {
+ content: '';
+ position: absolute; top:-80px; right:-80px;
+ width: 260px; height: 260px;
+ background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+ border-radius: 50%;
+ animation: pulse-glow 4s ease-in-out infinite;
+}
+@keyframes pulse-glow {
+ 0%,100% { opacity:.4; transform:scale(1); }
+ 50% { opacity:.8; transform:scale(1.15); }
+}
+.hero-content { position:relative; z-index:1; display:flex; justify-content:space-between; align-items:flex-start; gap:32px; flex-wrap:wrap; }
+.hero-main h1 {
+ font-size: 2.4rem; font-weight:700; letter-spacing:-.03em;
+ background: linear-gradient(135deg, var(--text) 0%, var(--accent) 100%);
+ -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+ background-clip: text;
+}
+.hero-main .title { font-size:1.05rem; color:var(--accent); margin:4px 0 8px; font-weight:500; }
+.hero-main .tagline { font-size:.92rem; color:var(--text-secondary); max-width:500px; }
+.hero-meta { text-align:right; font-size:.88rem; color:var(--text-secondary); line-height:1.9; white-space:nowrap; }
+.hero-meta a { font-size:.85rem; }
 
-  /* ─── Project Card ─── */
-  .project-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
-  .project-card {
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 16px 18px;
-    transition: border-color .15s, box-shadow .15s;
-    background: var(--card);
-  }
-  .project-card:hover { border-color: var(--accent); box-shadow: 0 2px 12px rgba(9,105,218,.1); }
-  .project-card .proj-name { font-weight: 600; font-size: 0.92rem; }
-  .project-card .proj-desc { font-size: 0.82rem; color: var(--text-secondary); margin: 4px 0 8px; }
-  .project-card .proj-tags { }
-  .project-card .proj-link { font-size: 0.8rem; display: inline-block; margin-top: 6px; }
+/* ─── Status Indicator ─── */
+.status { display:inline-flex; align-items:center; gap:6px; font-size:.82rem; color:var(--green); margin-bottom:10px; }
+.status-dot { width:8px; height:8px; border-radius:50%; background:var(--green); animation:blink 2s infinite; }
+@keyframes blink { 0%,100%{opacity:1;} 50%{opacity:.3;} }
 
-  /* ─── Skills ─── */
-  .skill-section { margin-bottom: 16px; }
-  .skill-section:last-child { margin-bottom: 0; }
-  .skill-section h4 { font-size: 0.85rem; font-weight: 600; color: var(--text-secondary); margin-bottom: 6px; }
+/* ─── Section / Card ─── */
+.section {
+ background: var(--card);
+ border: 1px solid var(--border);
+ border-radius: var(--radius);
+ padding: 32px 36px;
+ margin-bottom: 20px;
+ opacity: 0;
+ transform: translateY(30px);
+ transition: opacity .6s ease, transform .6s ease, border-color var(--transition);
+}
+.section.visible { opacity:1; transform:translateY(0); }
+.section:hover { border-color: rgba(88,166,255,.3); }
+.section-title {
+ font-size:.82rem; font-weight:600; text-transform:uppercase; letter-spacing:.06em;
+ color:var(--text-tertiary); margin-bottom:20px;
+ display:flex; align-items:center; gap:10px;
+}
+.section-title::after { content:''; flex:1; height:1px; background:linear-gradient(90deg, var(--border), transparent); }
 
-  /* ─── Mobile ─── */
-  @media (max-width: 700px) {
-    .page { padding: 16px 12px 40px; }
-    .header { flex-direction: column; padding: 20px 18px; }
-    .header-meta { text-align: left; white-space: normal; }
-    .card { padding: 20px 18px; }
-    .grid-2, .grid-3, .project-grid { grid-template-columns: 1fr; }
-    html { font-size: 14px; }
-  }
+/* ─── Badge / Tag ─── */
+.tag {
+ display:inline-block; padding:3px 12px; border-radius:20px;
+ font-size:.78rem; margin:3px 4px; transition: transform .15s, box-shadow .15s;
+ border:1px solid transparent;
+}
+.tag:hover { transform:translateY(-1px); box-shadow:0 2px 8px rgba(0,0,0,.3); }
+.tag-blue { background:rgba(88,166,255,.1); color:var(--accent); border-color:rgba(88,166,255,.2); }
+.tag-green { background:var(--green-bg); color:var(--green); border-color:rgba(63,185,80,.2); }
+.tag-purple { background:var(--purple-bg); color:var(--purple); border-color:rgba(188,140,255,.2); }
+.tag-orange { background:var(--orange-bg); color:var(--orange); border-color:rgba(210,153,34,.2); }
+.tag-default { background:rgba(139,148,158,.1); color:var(--text-secondary); border-color:rgba(139,148,158,.15); }
+
+/* ─── Timeline ─── */
+.timeline { position:relative; padding-left:28px; }
+.timeline::before { content:''; position:absolute; left:7px; top:8px; bottom:8px; width:2px; background:linear-gradient(180deg, var(--accent), var(--border), transparent); }
+.timeline-item { position:relative; padding:0 0 28px; }
+.timeline-item:last-child { padding-bottom:0; }
+.timeline-item::before {
+ content:''; position:absolute; left:-24px; top:6px;
+ width:10px; height:10px; border-radius:50%;
+ background:var(--accent); border:2px solid var(--card);
+ box-shadow:0 0 0 3px var(--accent-glow);
+ transition: box-shadow var(--transition);
+}
+.timeline-item:hover::before { box-shadow:0 0 0 6px var(--accent-glow); }
+.timeline-item h3 { font-size:.95rem; font-weight:600; color:var(--text); }
+.timeline-item .meta { font-size:.82rem; color:var(--text-tertiary); margin:2px 0 8px; }
+.timeline-item p { font-size:.9rem; color:var(--text-secondary); }
+.timeline-item ul { margin:8px 0 0 18px; }
+.timeline-item li { font-size:.88rem; color:var(--text-secondary); margin-bottom:5px; list-style:none; position:relative; padding-left:16px; }
+.timeline-item li::before { content:'▸'; position:absolute; left:0; color:var(--accent); }
+
+/* ─── Grid ─── */
+.grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+.grid-3 { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
+.grid-item {
+ background:var(--surface-2); border:1px solid var(--border);
+ border-radius:var(--radius); padding:16px 18px;
+ transition: border-color var(--transition), transform var(--transition), box-shadow var(--transition);
+}
+.grid-item:hover { border-color:rgba(88,166,255,.3); transform:translateY(-2px); box-shadow:0 4px 16px rgba(0,0,0,.3); }
+.grid-item strong { font-size:.9rem; display:block; margin-bottom:4px; }
+.grid-item p { font-size:.82rem; color:var(--text-secondary); }
+
+/* ─── Project Card ─── */
+.project-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:16px; }
+.project-card {
+ background:var(--surface-2); border:1px solid var(--border);
+ border-radius:var(--radius); padding:20px 22px;
+ transition: all var(--transition); position:relative; overflow:hidden;
+ cursor:pointer;
+}
+.project-card::before {
+ content:''; position:absolute; top:0; left:0; right:0; height:3px;
+ background:linear-gradient(90deg, var(--accent), var(--purple));
+ transform:scaleX(0); transform-origin:left; transition:transform var(--transition);
+}
+.project-card:hover::before { transform:scaleX(1); }
+.project-card:hover { border-color:rgba(88,166,255,.4); transform:translateY(-3px); box-shadow:0 8px 24px rgba(0,0,0,.4); }
+.project-card .proj-name { font-weight:600; font-size:.95rem; display:flex; align-items:center; gap:8px; }
+.project-card .proj-name .proj-icon { font-size:1.2rem; }
+.project-card .proj-desc { font-size:.82rem; color:var(--text-secondary); margin:8px 0 12px; line-height:1.5; }
+.project-card .proj-stats { display:flex; gap:16px; margin-bottom:10px; font-size:.78rem; color:var(--text-tertiary); }
+.project-card .proj-stats span { display:flex; align-items:center; gap:4px; }
+.project-card .proj-link { font-size:.82rem; display:inline-flex; align-items:center; gap:4px; color:var(--accent); }
+.project-card .proj-link:hover { text-decoration:none; gap:8px; }
+
+/* ─── Contribution Graph ─── */
+.contrib-graph { display:grid; grid-template-columns:repeat(52,1fr); gap:2px; margin:12px 0; }
+.contrib-cell { width:100%; aspect-ratio:1; border-radius:2px; background:var(--surface-2); transition: transform .1s; }
+.contrib-cell:hover { transform:scale(1.5); }
+.contrib-1 { background:rgba(63,185,80,.25); }
+.contrib-2 { background:rgba(63,185,80,.5); }
+.contrib-3 { background:rgba(63,185,80,.75); }
+.contrib-4 { background:var(--green); }
+
+/* ─── Skill Bar ─── */
+.skill-bar-wrap { margin:8px 0; }
+.skill-bar-label { display:flex; justify-content:space-between; font-size:.82rem; margin-bottom:4px; color:var(--text-secondary); }
+.skill-bar-track { height:6px; background:var(--surface-2); border-radius:3px; overflow:hidden; }
+.skill-bar-fill { height:100%; border-radius:3px; transition: width 1.2s cubic-bezier(.4,0,.2,1); width:0; }
+.skill-bar-fill.fill-blue { background:linear-gradient(90deg, #1f6feb, var(--accent)); }
+.skill-bar-fill.fill-green { background:linear-gradient(90deg, #238636, var(--green)); }
+.skill-bar-fill.fill-purple { background:linear-gradient(90deg, #8957e5, var(--purple)); }
+.skill-bar-fill.fill-orange { background:linear-gradient(90deg, #9e6a03, var(--orange)); }
+
+/* ─── Typewriter ─── */
+.typewriter { display:inline; }
+.typewriter-cursor { display:inline-block; width:2px; height:1.1em; background:var(--accent); margin-left:2px; animation:cursor-blink .8s infinite; vertical-align:text-bottom; }
+@keyframes cursor-blink { 0%,100%{opacity:1;} 50%{opacity:0;} }
+
+/* ─── Counter ─── */
+.counter { font-family:'JetBrains Mono',monospace; font-weight:500; }
+
+/* ─── Footer ─── */
+.footer { text-align:center; padding:40px 0 16px; color:var(--text-tertiary); font-size:.78rem; border-top:1px solid var(--border); margin-top:24px; }
+
+/* ─── Mobile ─── */
+@media (max-width:700px) {
+ .page { padding:16px 14px 40px; }
+ .hero { padding:28px 20px; }
+ .hero-content { flex-direction:column; }
+ .hero-meta { text-align:left; white-space:normal; }
+ .hero-main h1 { font-size:1.8rem; }
+ .section { padding:20px 18px; }
+ .grid-2, .grid-3, .project-grid { grid-template-columns:1fr; }
+ .nav { gap:14px; font-size:.8rem; padding:10px 14px; }
+ html { font-size:14px; }
+ .contrib-graph { grid-template-columns:repeat(26,1fr); }
+}
 </style>
 </head>
 <body>
+
+<!-- Particle Background -->
+<canvas id="particles"></canvas>
+
+<!-- Navigation -->
+<nav class="nav">
+ <span class="nav-logo">⟨LQ/⟩</span>
+ <a href="#about" data-i18n="nav_about">概述</a>
+ <a href="#experience" data-i18n="nav_experience">经历</a>
+ <a href="#projects" data-i18n="nav_projects">项目</a>
+ <a href="#skills" data-i18n="nav_skills">技能</a>
+ <a href="#education" data-i18n="nav_education">教育</a>
+ <div class="lang-toggle">
+  <button class="lang-btn active" data-lang="zh">中</button>
+  <button class="lang-btn" data-lang="en">EN</button>
+ </div>
+</nav>
+
 <div class="page">
 
-<!-- ═══ HEADER ═══ -->
-<div class="header">
-  <div class="header-main">
-    <h1>零骞</h1>
-    <div class="title">AI 研发工程师 · 产品基础设施</div>
-    <div class="tagline">从交互设计到 LLM 产品化，14 年跨领域实践经验</div>
-  </div>
-  <div class="header-meta">
-    📍 深圳 &nbsp;·&nbsp; 38岁<br>
-    📞 13524346412<br>
-    ✉️ 296928959@qq.com<br>
-    <a href="https://github.com/ling-qian" target="_blank">🐙 github.com/ling-qian</a>
-  </div>
+<!-- ═══ HERO ═══ -->
+<div class="hero" id="about">
+ <div class="hero-content">
+ <div class="hero-main">
+ <div class="status"><span class="status-dot"></span><span data-i18n="status_text">Open to Work</span></div>
+ <h1 data-i18n="hero_name">零骞</h1>
+ <div class="title" data-i18n="hero_title">AI 研发工程师 · 产品基础设施</div>
+ <div class="tagline">
+ <span class="typewriter" id="typewriter"></span><span class="typewriter-cursor"></span>
+ </div>
+ </div>
+ <div class="hero-meta">
+ 📍 <span data-i18n="hero_location">深圳</span> &nbsp;·&nbsp; <span data-i18n="hero_age">38岁</span><br>
+ 📞 13524346412<br>
+ ✉️ 296928959@qq.com<br>
+ <a href="https://github.com/ling-qian" target="_blank">🐙 github.com/ling-qian</a>
+ </div>
+ </div>
 </div>
 
-<!-- ═══ 个人优势 ═══ -->
-<div class="card">
-  <div class="card-title">🎯 概述</div>
-  <p style="font-size:0.92rem;color:var(--text-secondary);margin-bottom:12px">
-    互联网行业深耕 <strong>14+ 年</strong>，从移动端开发 → 前端架构 → 产品经理 → AI 研发工程师。
-    现专注 LLM 驱动的智能产品基础设施：<strong>Agent 框架 · 持久化记忆 · 数据闭环 · 多代理编排</strong>。
-    擅长全链路产品规划，具备跨部门协同领导力。
-  </p>
-  <div>
-    <span class="tag tag-blue">AI 产品基础设施</span>
-    <span class="tag tag-blue">LLM 应用架构</span>
-    <span class="tag tag-blue">Agent 系统设计</span>
-    <span class="tag tag-green">Python / Databricks</span>
-    <span class="tag tag-purple">Hermes / Claude Code / Codex</span>
-    <span class="tag tag-orange">产品设计 &amp; 用户体验</span>
-    <span class="tag">跨部门协同</span>
-    <span class="tag">数据驱动决策</span>
-  </div>
+<!-- ═══ 概述 ═══ -->
+<div class="section" id="overview">
+ <div class="section-title" data-i18n="sec_overview">🎯 概述</div>
+ <p style="font-size:.94rem;color:var(--text-secondary);margin-bottom:16px;line-height:1.7" data-i18n="overview_text">
+ 互联网行业深耕 <strong class="counter" data-target="14">0</strong>+ 年，从移动端开发 → 前端架构 → 产品经理 → AI 研发工程师。
+ 现专注 LLM 驱动的智能产品基础设施：<strong>Agent 框架 · 持久化记忆 · 数据闭环 · 多代理编排</strong>。
+ 擅长全链路产品规划，具备跨部门协同领导力。
+ </p>
+ <div>
+ <span class="tag tag-blue">AI Product Infra</span>
+ <span class="tag tag-blue">LLM Architecture</span>
+ <span class="tag tag-blue">Agent System Design</span>
+ <span class="tag tag-green">Python / Databricks</span>
+ <span class="tag tag-purple">Hermes / Claude Code / Codex</span>
+ <span class="tag tag-orange" data-i18n="tag_product_ux">产品设计 &amp; 用户体验</span>
+ <span class="tag tag-default" data-i18n="tag_cross_dept">跨部门协同</span>
+ <span class="tag tag-default" data-i18n="tag_data_driven">数据驱动决策</span>
+ </div>
 </div>
 
-<!-- ═══ AI 工作经历 ═══ -->
-<div class="card">
-  <div class="card-title">💼 工作经历</div>
-  <div class="timeline">
+<!-- ═══ 工作经历 ═══ -->
+<div class="section" id="experience">
+ <div class="section-title" data-i18n="sec_experience">💼 工作经历</div>
+ <div class="timeline">
 
-    <div class="timeline-item">
-      <h3>AI 研发工程师 · 深圳市天巡科技有限公司</h3>
-      <div class="meta">2021.10 — 至今 · 4 年 5 个月</div>
-      <p>负责 LLM 驱动的智能报告产品核心模块，将数据洞察转化为自动化商业决策。</p>
-      <ul>
-        <li><strong>智能报告 MVP</strong>：深度访谈抽象分析框架，设计核心 LLM 提示方案，分析师准备时间 <strong>↓60%+</strong></li>
-        <li><strong>个性化与进化体系</strong>：统一身份层 + 持久化记忆系统 + 数据反馈闭环，核心用户留存 <strong>↑25%</strong></li>
-        <li><strong>垂直领域 Agent</strong>：15 分钟多步分析 → 单次 NL 交互 2 分钟，<strong>70%</strong> 分析师 3 个月内采用</li>
-        <li><strong>AI 可信度</strong>：「详情天图」推理透明化 → 客服咨询 <strong>↓50%</strong>；可视化指南 → 易读性评分 <strong>↑40%</strong></li>
-      </ul>
-      <div style="margin-top:6px">
-        <span class="tag tag-blue">LLM</span>
-        <span class="tag tag-blue">Prompt Engineering</span>
-        <span class="tag tag-blue">RAG</span>
-        <span class="tag tag-blue">Agent</span>
-        <span class="tag tag-green">Python</span>
-        <span class="tag tag-green">Databricks/Spark</span>
-        <span class="tag tag-green">AWS S3</span>
-        <span class="tag">SQL</span>
-      </div>
-    </div>
+ <div class="timeline-item">
+ <h3 data-i18n="exp1_title">AI 研发工程师 · 深圳市天巡科技有限公司</h3>
+ <div class="meta" data-i18n="exp1_meta">2021.10 — 至今 · <span class="counter" data-target="4">0</span> 年 5 个月</div>
+ <p data-i18n="exp1_desc">负责 LLM 驱动的智能报告产品核心模块，将数据洞察转化为自动化商业决策。</p>
+ <ul>
+ <li data-i18n="exp1_l1"><strong>智能报告 MVP</strong>：深度访谈抽象分析框架，设计核心 LLM 提示方案，分析师准备时间 <strong style="color:var(--green)">↓60%+</strong></li>
+ <li data-i18n="exp1_l2"><strong>个性化与进化体系</strong>：统一身份层 + 持久化记忆系统 + 数据反馈闭环，核心用户留存 <strong style="color:var(--green)">↑25%</strong></li>
+ <li data-i18n="exp1_l3"><strong>垂直领域 Agent</strong>：15min 多步分析 → 单次 NL 交互 2min，<strong style="color:var(--green)">70%</strong> 分析师 3 个月内采用</li>
+ <li data-i18n="exp1_l4"><strong>AI 可信度</strong>：「详情天图」推理透明化 → 客服咨询 <strong style="color:var(--green)">↓50%</strong>；可视化指南 → 易读性评分 <strong style="color:var(--green)">↑40%</strong></li>
+ </ul>
+ <div style="margin-top:8px">
+ <span class="tag tag-blue">LLM</span><span class="tag tag-blue">Prompt Engineering</span>
+ <span class="tag tag-blue">RAG</span><span class="tag tag-blue">Agent</span>
+ <span class="tag tag-green">Python</span><span class="tag tag-green">Databricks/Spark</span>
+ <span class="tag tag-green">AWS S3</span><span class="tag tag-default">SQL</span>
+ </div>
+ </div>
 
-    <div class="timeline-item">
-      <h3>互联网产品经理 · 深圳携程网络技术有限公司</h3>
-      <div class="meta">2015.06 — 2021.09 · 6 年 4 个月</div>
-      <p>需求分析、PRD/原型设计、竞品分析、产品全生命周期运营、跨部门协调（市场/开发/运营/管理）。</p>
-      <div style="margin-top:6px">
-        <span class="tag">产品设计</span><span class="tag">Axure</span><span class="tag">PRD</span>
-        <span class="tag">竞品分析</span><span class="tag">用户研究</span><span class="tag">Jira</span><span class="tag">Confluence</span>
-      </div>
-    </div>
+ <div class="timeline-item">
+ <h3 data-i18n="exp2_title">互联网产品经理 · 深圳携程网络技术有限公司</h3>
+ <div class="meta" data-i18n="exp2_meta">2015.06 — 2021.09 · 6 年 4 个月</div>
+ <p data-i18n="exp2_desc">需求分析、PRD/原型设计、竞品分析、产品全生命周期运营、跨部门协调。</p>
+ <div style="margin-top:6px">
+ <span class="tag tag-default" data-i18n="tag_product_design">产品设计</span><span class="tag tag-default">Axure</span><span class="tag tag-default">PRD</span>
+ <span class="tag tag-default" data-i18n="tag_competitive">竞品分析</span><span class="tag tag-default">Jira</span><span class="tag tag-default">Confluence</span>
+ </div>
+ </div>
 
-    <div class="timeline-item">
-      <h3>前端开发 · 深圳携程网络技术有限公司</h3>
-      <div class="meta">2013.05 — 2015.06 · 2 年 2 个月</div>
-      <p>携程网站前端、官网 mvm18.com 响应式重构、移动端 m.mvm18.com 开发、活动专题制作。</p>
-      <div style="margin-top:6px">
-        <span class="tag">HTML5/CSS3</span><span class="tag">JavaScript</span>
-        <span class="tag">jQuery</span><span class="tag">响应式</span><span class="tag">Git</span>
-      </div>
-    </div>
+ <div class="timeline-item">
+ <h3 data-i18n="exp3_title">前端开发 · 深圳携程网络技术有限公司</h3>
+ <div class="meta" data-i18n="exp3_meta">2013.05 — 2015.06 · 2 年 2 个月</div>
+ <p data-i18n="exp3_desc">携程网站前端、官网响应式重构、移动端开发、活动专题制作。</p>
+ <div style="margin-top:6px">
+ <span class="tag tag-default">HTML5/CSS3</span><span class="tag tag-default">JavaScript</span>
+ <span class="tag tag-default">jQuery</span><span class="tag tag-default" data-i18n="tag_responsive">响应式</span>
+ </div>
+ </div>
 
-    <div class="timeline-item">
-      <h3>前端开发 · 上海七悦传媒有限公司</h3>
-      <div class="meta">2012.08 — 2013.04 · 9 个月</div>
-      <p>网站 www.icb2c.com 前端开发、专题制作、PS 切图</p>
-    </div>
+ <div class="timeline-item">
+ <h3 data-i18n="exp4_title">前端开发 · 上海七悦传媒有限公司</h3>
+ <div class="meta" data-i18n="exp4_meta">2012.08 — 2013.04 · 9 个月</div>
+ <p data-i18n="exp4_desc">网站前端开发、专题制作、PS 切图</p>
+ </div>
 
-  </div>
+ </div>
 </div>
 
-<!-- ═══ 开源项目（GitHub 作品集）═══ -->
-<div class="card">
-  <div class="card-title">📚 GitHub 项目精选</div>
+<!-- ═══ GitHub 项目精选 ═══ -->
+<div class="section" id="projects">
+ <div class="section-title" data-i18n="sec_projects">📚 GitHub 项目精选</div>
 
-  <div class="project-grid">
-    <!-- openclaw-enterprise -->
-    <div class="project-card">
-      <div class="proj-name">📦 openclaw-enterprise</div>
-      <div class="proj-desc">OpenClaw 企业级方案：安全审计、渗透测试、事件响应、客服自动化四大商业套件</div>
-      <div class="proj-tags">
-        <span class="tag tag-blue">Agent</span>
-        <span class="tag tag-blue">Enterprise</span>
-        <span class="tag">Security</span>
-      </div>
-      <a href="https://github.com/ling-qian/openclaw-enterprise" class="proj-link" target="_blank">查看 →</a>
-    </div>
+ <!-- Contribution heatmap -->
+ <div style="margin-bottom:20px">
+ <div style="font-size:.78rem;color:var(--text-tertiary);margin-bottom:8px" data-i18n="contrib_label">2026 贡献热力图</div>
+ <div class="contrib-graph" id="contribGraph"></div>
+ <div style="display:flex;gap:4px;align-items:center;font-size:.72rem;color:var(--text-tertiary);margin-top:6px">
+ <span data-i18n="contrib_less">Less</span>
+ <div style="width:10px;height:10px;border-radius:2px;background:var(--surface-2)"></div>
+ <div style="width:10px;height:10px;border-radius:2px;background:rgba(63,185,80,.25)"></div>
+ <div style="width:10px;height:10px;border-radius:2px;background:rgba(63,185,80,.5)"></div>
+ <div style="width:10px;height:10px;border-radius:2px;background:rgba(63,185,80,.75)"></div>
+ <div style="width:10px;height:10px;border-radius:2px;background:var(--green)"></div>
+ <span data-i18n="contrib_more">More</span>
+ </div>
+ </div>
 
-    <!-- opc-openclaw-integration -->
-    <div class="project-card">
-      <div class="proj-name">🔗 opc-openclaw-integration</div>
-      <div class="proj-desc">OPC 与 OpenClaw 双向集成：CI/CD、多 Python 测试矩阵、部署指南</div>
-      <div class="proj-tags">
-        <span class="tag tag-purple">OPC</span>
-        <span class="tag tag-green">CI/CD</span>
-        <span class="tag">Integration</span>
-      </div>
-      <a href="https://github.com/ling-qian/opc-openclaw-integration" class="proj-link" target="_blank">查看 →</a>
-    </div>
+ <div class="project-grid">
 
-    <!-- openclaw-dev-workflows -->
-    <div class="project-card">
-      <div class="proj-name">⚙️ openclaw-dev-workflows</div>
-      <div class="proj-desc">OpenClaw 开发者工作流库：代码异味检测、Django/MySQL/Redis 监控、文档转换等实用技能集合</div>
-      <div class="proj-tags">
-        <span class="tag tag-blue">DevOps</span>
-        <span class="tag tag-orange">Monitoring</span>
-        <span class="tag">Developer Tools</span>
-      </div>
-      <a href="https://github.com/ling-qian/openclaw-dev-workflows" class="proj-link" target="_blank">查看 →</a>
-    </div>
+ <div class="project-card" onclick="window.open('https://github.com/ling-qian/openclaw-learning-miniprogram','_blank')">
+ <div class="proj-name"><span class="proj-icon">🎓</span> openclaw-learning-miniprogram</div>
+ <div class="proj-desc" data-i18n="proj1_desc">OpenClaw 学习小程序：AI 驱动的学习路径规划、知识卡片生成、互动测验系统</div>
+ <div class="proj-stats"><span>⭐ 1</span><span>📡 JavaScript</span><span>📅 2026-06</span></div>
+ <div><span class="tag tag-blue">Mini Program</span><span class="tag tag-blue">AI Learning</span><span class="tag tag-green">JavaScript</span></div>
+ <a href="https://github.com/ling-qian/openclaw-learning-miniprogram" class="proj-link" target="_blank" onclick="event.stopPropagation()" data-i18n="proj_view">查看 →</a>
+ </div>
 
-    <!-- resume-html-skill -->
-    <div class="project-card">
-      <div class="proj-name">📝 resume-html-skill</div>
-      <div class="proj-desc">ATS 安全简历 HTML 生成技能：数据驱动模板引擎，支持 JSON 输入输出 ATS 兼容简历</div>
-      <div class="proj-tags">
-        <span class="tag tag-purple">HTML</span>
-        <span class="tag">ATS</span>
-        <span class="tag">Template</span>
-      </div>
-      <a href="https://github.com/ling-qian/resume-html-skill" class="proj-link" target="_blank">查看 →</a>
-    </div>
+ <div class="project-card" onclick="window.open('https://github.com/ling-qian/openclaw-enterprise','_blank')">
+ <div class="proj-name"><span class="proj-icon">📦</span> openclaw-enterprise</div>
+ <div class="proj-desc" data-i18n="proj2_desc">OpenClaw 企业级方案：安全审计、渗透测试、事件响应、客服自动化四大商业套件</div>
+ <div class="proj-stats"><span>⭐ 0</span><span>📡 Shell</span><span>📅 2026-05</span></div>
+ <div><span class="tag tag-blue">Agent</span><span class="tag tag-blue">Enterprise</span><span class="tag tag-orange">Security</span></div>
+ <a href="https://github.com/ling-qian/openclaw-enterprise" class="proj-link" target="_blank" onclick="event.stopPropagation()" data-i18n="proj_view">查看 →</a>
+ </div>
 
-    <!-- wechat-lead-generation -->
-    <div class="project-card">
-      <div class="proj-name">💬 wechat-lead-generation</div>
-      <div class="proj-desc">微信获客自动化技能：AI 驱动的客户线索挖掘、对话管理与转化追踪</div>
-      <div class="proj-tags">
-        <span class="tag tag-blue">AI</span>
-        <span class="tag tag-green">WeChat</span>
-        <span class="tag">Lead Gen</span>
-      </div>
-      <a href="https://github.com/ling-qian/wechat-lead-generation" class="proj-link" target="_blank">查看 →</a>
-    </div>
+ <div class="project-card" onclick="window.open('https://github.com/ling-qian/wechat-lead-generation','_blank')">
+ <div class="proj-name"><span class="proj-icon">💬</span> wechat-lead-generation</div>
+ <div class="proj-desc" data-i18n="proj3_desc">微信获客自动化技能：AI 驱动的客户线索挖掘、对话管理与转化追踪</div>
+ <div class="proj-stats"><span>⭐ 0</span><span>📡 Python</span><span>📅 2026-05</span></div>
+ <div><span class="tag tag-blue">AI</span><span class="tag tag-green">WeChat</span><span class="tag tag-default">Lead Gen</span></div>
+ <a href="https://github.com/ling-qian/wechat-lead-generation" class="proj-link" target="_blank" onclick="event.stopPropagation()" data-i18n="proj_view">查看 →</a>
+ </div>
 
-    <!-- CowAgent -->
-    <div class="project-card">
-      <div class="proj-name">🐄 CowAgent</div>
-      <div class="proj-desc">多代理任务编排框架：任务分解、并行执行、多 Agent 协作调度</div>
-      <div class="proj-tags">
-        <span class="tag tag-blue">Multi-Agent</span>
-        <span class="tag tag-purple">Orchestration</span>
-        <span class="tag">Python</span>
-      </div>
-      <a href="https://github.com/ling-qian/CowAgent" class="proj-link" target="_blank">查看 →</a>
-    </div>
+ <div class="project-card" onclick="window.open('https://github.com/ling-qian/openclaw-skills','_blank')">
+ <div class="proj-name"><span class="proj-icon">🧩</span> openclaw-skills</div>
+ <div class="proj-desc" data-i18n="proj4_desc">OpenClaw 技能仓库：自定义 Agent 技能集合，覆盖 DevOps、数据分析、安全审计等领域</div>
+ <div class="proj-stats"><span>⭐ 0</span><span>📡 Python</span><span>📅 2026-05</span></div>
+ <div><span class="tag tag-purple">Skills</span><span class="tag tag-green">Python</span><span class="tag tag-default">Agent</span></div>
+ <a href="https://github.com/ling-qian/openclaw-skills" class="proj-link" target="_blank" onclick="event.stopPropagation()" data-i18n="proj_view">查看 →</a>
+ </div>
 
-    <!-- claw-code -->
-    <div class="project-card">
-      <div class="proj-name">🦀 claw-code</div>
-      <div class="proj-desc">Rust 编写的 OpenClaw 代码技能 CLI：AI 编程代理，支持 codex/claude-code 多引擎</div>
-      <div class="proj-tags">
-        <span class="tag tag-orange">Rust</span>
-        <span class="tag tag-blue">Codex CLI</span>
-        <span class="tag">Coding Agent</span>
-      </div>
-      <a href="https://github.com/ultraworkers/claw-code" class="proj-link" target="_blank">查看 →</a>
-    </div>
+ <div class="project-card" onclick="window.open('https://github.com/ling-qian/CowAgent','_blank')">
+ <div class="proj-name"><span class="proj-icon">🐄</span> CowAgent</div>
+ <div class="proj-desc" data-i18n="proj5_desc">多代理任务编排框架：DAG 任务分解、并行执行、Agent 通信协议与协作调度引擎</div>
+ <div class="proj-stats"><span>⭐ 0</span><span>📡 Python</span><span>📅 2026-06</span></div>
+ <div><span class="tag tag-blue">Multi-Agent</span><span class="tag tag-purple">Orchestration</span><span class="tag tag-green">Python</span></div>
+ <a href="https://github.com/ling-qian/CowAgent" class="proj-link" target="_blank" onclick="event.stopPropagation()" data-i18n="proj_view">查看 →</a>
+ </div>
 
-    <!-- piaoxiaozhu -->
-    <div class="project-card">
-      <div class="proj-name">🐷 piaoxiaozhu</div>
-      <div class="proj-desc">全栈 Web 应用：Next.js + Prisma + 微信生态集成</div>
-      <div class="proj-tags">
-        <span class="tag tag-green">Next.js</span>
-        <span class="tag tag-green">Prisma</span>
-        <span class="tag">Full-Stack</span>
-      </div>
-      <a href="https://github.com/ling-qian/piaoxiaozhu" class="proj-link" target="_blank">查看 →</a>
-    </div>
-  </div>
+ <div class="project-card" onclick="window.open('https://github.com/ling-qian/opc-openclaw-integration','_blank')">
+ <div class="proj-name"><span class="proj-icon">🔗</span> opc-openclaw-integration</div>
+ <div class="proj-desc" data-i18n="proj6_desc">OPC 与 OpenClaw 双向集成：CI/CD 流水线、多 Python 版本测试矩阵、一键部署</div>
+ <div class="proj-stats"><span>⭐ 1</span><span>📡 JavaScript</span><span>📅 2026-05</span></div>
+ <div><span class="tag tag-purple">OPC</span><span class="tag tag-green">CI/CD</span><span class="tag tag-default">Integration</span></div>
+ <a href="https://github.com/ling-qian/opc-openclaw-integration" class="proj-link" target="_blank" onclick="event.stopPropagation()" data-i18n="proj_view">查看 →</a>
+ </div>
+
+ <div class="project-card" onclick="window.open('https://github.com/ling-qian/openclaw-dev-workflows','_blank')">
+ <div class="proj-name"><span class="proj-icon">⚙️</span> openclaw-dev-workflows</div>
+ <div class="proj-desc" data-i18n="proj7_desc">开发者工作流库：代码异味检测、Django/MySQL/Redis 监控、文档格式转换等实用技能</div>
+ <div class="proj-stats"><span>⭐ 0</span><span>📡 Python</span><span>📅 2026-05</span></div>
+ <div><span class="tag tag-blue">DevOps</span><span class="tag tag-orange">Monitoring</span><span class="tag tag-default">Tools</span></div>
+ <a href="https://github.com/ling-qian/openclaw-dev-workflows" class="proj-link" target="_blank" onclick="event.stopPropagation()" data-i18n="proj_view">查看 →</a>
+ </div>
+
+ <div class="project-card" onclick="window.open('https://github.com/ling-qian/ling-qian.github.io','_blank')">
+ <div class="proj-name"><span class="proj-icon">🌐</span> ling-qian.github.io</div>
+ <div class="proj-desc" data-i18n="proj8_desc">个人在线简历网站：暗色主题、粒子动画、滚动视差、GitHub 数据实时展示</div>
+ <div class="proj-stats"><span>⭐ 0</span><span>📡 HTML</span><span>📅 2026-06</span></div>
+ <div><span class="tag tag-purple">HTML/CSS</span><span class="tag tag-blue">JS Animation</span><span class="tag tag-default">Portfolio</span></div>
+ <a href="https://github.com/ling-qian/ling-qian.github.io" class="proj-link" target="_blank" onclick="event.stopPropagation()" data-i18n="proj_view">查看 →</a>
+ </div>
+
+ </div>
 </div>
 
 <!-- ═══ AI 能力矩阵 ═══ -->
-<div class="card">
-  <div class="card-title">🤖 AI 能力矩阵</div>
-  <div class="grid-3">
-    <div class="grid-item"><strong>🧠 LLM 应用</strong><p>提示工程 · RAG · Agent 交互 · 上下文窗口优化</p></div>
-    <div class="grid-item"><strong>🔧 Agent 框架</strong><p>Hermes Agent · OpenClaw · Claude Code · Codex CLI</p></div>
-    <div class="grid-item"><strong>🏗️ 持久化记忆</strong><p>agentmemory · 多层记忆 · 会话续聊 · 跨 Session 持久化</p></div>
-    <div class="grid-item"><strong>🔄 数据闭环</strong><p>反馈采集 → 分析 → Auto-优化管线 · 用户行为追踪</p></div>
-    <div class="grid-item"><strong>🐄 多代理编排</strong><p>CowAgent · 任务分解 DAG · 并行执行 · Agent 通信协议</p></div>
-    <div class="grid-item"><strong>⚡ AI 编程代理</strong><p>Claude Code / Codex CLI · prompt-to-code 流水线 · 代码审查</p></div>
-    <div class="grid-item"><strong>🏭 企业级方案</strong><p>OpenClaw Enterprise · 安全审计 · CRM 自动化 · 商业套件</p></div>
-    <div class="grid-item"><strong>📊 数据基础设施</strong><p>Databricks/Spark · AWS S3 · SQL · Python FastAPI · ETL 管道</p></div>
-    <div class="grid-item"><strong>📈 产品分析</strong><p>用户行为分析 · Amplitude · OKR 定义 · A/B 测试 · 数据驱动迭代</p></div>
-  </div>
+<div class="section">
+ <div class="section-title" data-i18n="sec_ai_matrix">🤖 AI 能力矩阵</div>
+ <div class="grid-3">
+ <div class="grid-item"><strong>🧠 <span data-i18n="ai_llm">LLM 应用</span></strong><p data-i18n="ai_llm_desc">提示工程 · RAG · Agent 交互 · 上下文窗口优化</p></div>
+ <div class="grid-item"><strong>🔧 <span data-i18n="ai_agent">Agent 框架</span></strong><p data-i18n="ai_agent_desc">Hermes Agent · OpenClaw · Claude Code · Codex CLI</p></div>
+ <div class="grid-item"><strong>🏗️ <span data-i18n="ai_memory">持久化记忆</span></strong><p data-i18n="ai_memory_desc">agentmemory · 多层记忆 · 会话续聊 · 跨 Session 持久化</p></div>
+ <div class="grid-item"><strong>🔄 <span data-i18n="ai_loop">数据闭环</span></strong><p data-i18n="ai_loop_desc">反馈采集 → 分析 → Auto-优化管线 · 用户行为追踪</p></div>
+ <div class="grid-item"><strong>🐄 <span data-i18n="ai_multi">多代理编排</span></strong><p data-i18n="ai_multi_desc">CowAgent · 任务分解 DAG · 并行执行 · Agent 通信协议</p></div>
+ <div class="grid-item"><strong>⚡ <span data-i18n="ai_code">AI 编程代理</span></strong><p data-i18n="ai_code_desc">Claude Code / Codex CLI · prompt-to-code 流水线 · 代码审查</p></div>
+ <div class="grid-item"><strong>🏭 <span data-i18n="ai_enterprise">企业级方案</span></strong><p data-i18n="ai_enterprise_desc">OpenClaw Enterprise · 安全审计 · CRM 自动化 · 商业套件</p></div>
+ <div class="grid-item"><strong>📊 <span data-i18n="ai_data">数据基础设施</span></strong><p data-i18n="ai_data_desc">Databricks/Spark · AWS S3 · SQL · Python FastAPI · ETL 管道</p></div>
+ <div class="grid-item"><strong>📈 <span data-i18n="ai_product">产品分析</span></strong><p data-i18n="ai_product_desc">用户行为分析 · Amplitude · OKR · A/B 测试 · 数据驱动迭代</p></div>
+ </div>
 </div>
 
 <!-- ═══ 产品作品 ═══ -->
-<div class="card">
-  <div class="card-title">📁 产品设计作品</div>
-  <div class="grid-2">
-    <a href="https://ling-qian.github.io/prd/html/login/" target="_blank" class="grid-item" style="text-decoration:none;color:inherit">
-      <strong>🔐 登录 / 注册页面</strong>
-      <p>HTML/CSS 原型设计 · 2016</p>
-    </a>
-    <a href="https://ling-qian.github.io/prd/html/shopping/start.html" target="_blank" class="grid-item" style="text-decoration:none;color:inherit">
-      <strong>🛒 购物商场原型</strong>
-      <p>产品设计原型（Axure） · 2017</p>
-    </a>
-  </div>
+<div class="section">
+ <div class="section-title" data-i18n="sec_portfolio">📁 产品设计作品</div>
+ <div class="grid-2">
+ <a href="https://ling-qian.github.io/prd/html/login/" target="_blank" class="grid-item" style="text-decoration:none;color:inherit">
+ <strong>🔐 <span data-i18n="portfolio_login">登录 / 注册页面</span></strong>
+ <p data-i18n="portfolio_login_desc">HTML/CSS 原型设计 · 2016</p>
+ </a>
+ <a href="https://ling-qian.github.io/prd/html/shopping/start.html" target="_blank" class="grid-item" style="text-decoration:none;color:inherit">
+ <strong>🛒 <span data-i18n="portfolio_shopping">购物商场原型</span></strong>
+ <p data-i18n="portfolio_shopping_desc">产品设计原型（Axure） · 2017</p>
+ </a>
+ </div>
 </div>
 
 <!-- ═══ 技能 ═══ -->
-<div class="card">
-  <div class="card-title">🛠 技能专长</div>
-  <div class="grid-2">
-    <div class="skill-section">
-      <h4>AI / LLM</h4>
-      <span class="tag tag-blue">Prompt Engineering</span>
-      <span class="tag tag-blue">RAG</span>
-      <span class="tag tag-blue">Agent</span>
-      <span class="tag tag-blue">Hermes</span>
-      <span class="tag tag-purple">Claude Code</span>
-      <span class="tag tag-purple">Codex CLI</span>
-      <span class="tag tag-blue">CowAgent</span>
-      <span class="tag tag-blue">记忆系统</span>
-    </div>
-    <div class="skill-section">
-      <h4>后端 &amp; 数据</h4>
-      <span class="tag tag-green">Python</span>
-      <span class="tag tag-green">FastAPI</span>
-      <span class="tag tag-green">Databricks/Spark</span>
-      <span class="tag tag-green">AWS S3</span>
-      <span class="tag">SQL</span>
-      <span class="tag">ETL</span>
-    </div>
-    <div class="skill-section">
-      <h4>前端</h4>
-      <span class="tag">HTML5/CSS3</span>
-      <span class="tag">JavaScript</span>
-      <span class="tag">jQuery</span>
-      <span class="tag">响应式</span>
-      <span class="tag">CSS3 动画</span>
-    </div>
-    <div class="skill-section">
-      <h4>产品 &amp; 工具</h4>
-      <span class="tag">Jira</span>
-      <span class="tag">Confluence</span>
-      <span class="tag">Figma</span>
-      <span class="tag">Axure</span>
-      <span class="tag">Amplitude</span>
-      <span class="tag">SQL</span>
-    </div>
-    <div class="skill-section">
-      <h4>语言</h4>
-      <span class="tag">普通话 母语</span>
-      <span class="tag tag-orange">粤语 熟练</span>
-      <span class="tag">英语 良好</span>
-    </div>
-    <div class="skill-section">
-      <h4>移动</h4>
-      <span class="tag">iOS 界面设计</span>
-      <span class="tag">Android 界面设计</span>
-      <span class="tag">移动 Web 标准</span>
-    </div>
-  </div>
+<div class="section" id="skills">
+ <div class="section-title" data-i18n="sec_skills">🛠 技能专长</div>
+ <div class="grid-2">
+ <div>
+ <div class="skill-bar-wrap">
+ <div class="skill-bar-label"><span>AI / LLM</span><span>95%</span></div>
+ <div class="skill-bar-track"><div class="skill-bar-fill fill-blue" data-width="95"></div></div>
+ </div>
+ <div class="skill-bar-wrap">
+ <div class="skill-bar-label"><span data-i18n="skill_agent">Agent 框架</span><span>90%</span></div>
+ <div class="skill-bar-track"><div class="skill-bar-fill fill-purple" data-width="90"></div></div>
+ </div>
+ <div class="skill-bar-wrap">
+ <div class="skill-bar-label"><span data-i18n="skill_multi">多代理编排</span><span>88%</span></div>
+ <div class="skill-bar-track"><div class="skill-bar-fill fill-purple" data-width="88"></div></div>
+ </div>
+ <div class="skill-bar-wrap">
+ <div class="skill-bar-label"><span>Prompt Engineering</span><span>92%</span></div>
+ <div class="skill-bar-track"><div class="skill-bar-fill fill-blue" data-width="92"></div></div>
+ </div>
+ </div>
+ <div>
+ <div class="skill-bar-wrap">
+ <div class="skill-bar-label"><span>Python</span><span>90%</span></div>
+ <div class="skill-bar-track"><div class="skill-bar-fill fill-green" data-width="90"></div></div>
+ </div>
+ <div class="skill-bar-wrap">
+ <div class="skill-bar-label"><span>Databricks/Spark</span><span>85%</span></div>
+ <div class="skill-bar-track"><div class="skill-bar-fill fill-green" data-width="85"></div></div>
+ </div>
+ <div class="skill-bar-wrap">
+ <div class="skill-bar-label"><span data-i18n="skill_product">产品 &amp; 设计</span><span>88%</span></div>
+ <div class="skill-bar-track"><div class="skill-bar-fill fill-orange" data-width="88"></div></div>
+ </div>
+ <div class="skill-bar-wrap">
+ <div class="skill-bar-label"><span data-i18n="skill_frontend">前端开发</span><span>82%</span></div>
+ <div class="skill-bar-track"><div class="skill-bar-fill fill-orange" data-width="82"></div></div>
+ </div>
+ </div>
+ </div>
+ <div style="margin-top:20px">
+ <div style="margin-bottom:12px">
+ <span class="tag tag-blue">Prompt Engineering</span><span class="tag tag-blue">RAG</span>
+ <span class="tag tag-blue">Agent</span><span class="tag tag-blue">Hermes</span>
+ <span class="tag tag-purple">Claude Code</span><span class="tag tag-purple">Codex CLI</span>
+ <span class="tag tag-blue">CowAgent</span><span class="tag tag-blue" data-i18n="tag_memory_sys">记忆系统</span>
+ <span class="tag tag-green">Python</span><span class="tag tag-green">FastAPI</span>
+ <span class="tag tag-green">Databricks/Spark</span><span class="tag tag-green">AWS S3</span>
+ <span class="tag tag-default">SQL</span><span class="tag tag-default">ETL</span>
+ <span class="tag tag-default">HTML5/CSS3</span><span class="tag tag-default">JavaScript</span>
+ <span class="tag tag-default">Jira</span><span class="tag tag-default">Figma</span>
+ <span class="tag tag-default">Axure</span><span class="tag tag-default">Amplitude</span>
+ </div>
+ <div>
+ <span class="tag tag-default" data-i18n="lang_native">普通话 母语</span>
+ <span class="tag tag-orange" data-i18n="lang_cantonese">粤语 熟练</span>
+ <span class="tag tag-default" data-i18n="lang_english">英语 良好</span>
+ </div>
+ </div>
 </div>
 
 <!-- ═══ 教育 ═══ -->
-<div class="card">
-  <div class="card-title">🎓 教育经历</div>
-  <div class="grid-2">
-    <div>
-      <strong>上海交通大学继续教育学院</strong>
-      <p style="font-size:0.85rem;color:var(--text-secondary)">本科（非全日制）· 工商管理<br>2014.02 — 2017.01</p>
-    </div>
-    <div>
-      <strong>上海科学技术职业学院</strong>
-      <p style="font-size:0.85rem;color:var(--text-secondary)">大专（全日制）· 计算机科学与技术<br>2008.09 — 2011.07</p>
-      <p style="font-size:0.8rem;color:var(--text-tertiary)">数据库三级 · 上海计算机二级（Java）· 校三等奖 · 优秀学生</p>
-    </div>
-  </div>
+<div class="section" id="education">
+ <div class="section-title" data-i18n="sec_education">🎓 教育经历</div>
+ <div class="grid-2">
+ <div class="grid-item">
+ <strong data-i18n="edu1_school">上海交通大学继续教育学院</strong>
+ <p data-i18n="edu1_desc">本科（非全日制）· 工商管理<br>2014.02 — 2017.01</p>
+ </div>
+ <div class="grid-item">
+ <strong data-i18n="edu2_school">上海科学技术职业学院</strong>
+ <p data-i18n="edu2_desc">大专（全日制）· 计算机科学与技术<br>2008.09 — 2011.07</p>
+ <p style="font-size:.78rem;color:var(--text-tertiary);margin-top:4px" data-i18n="edu2_awards">数据库三级 · 上海计算机二级（Java）· 校三等奖 · 优秀学生</p>
+ </div>
+ </div>
 </div>
 
 <!-- ═══ Footer ═══ -->
-<div style="text-align:center;padding:32px 0 8px;color:var(--text-tertiary);font-size:0.78rem;border-top:1px solid var(--border)">
-  © 2025 零骞 · 在线简历 · <a href="https://github.com/ling-qian/ling-qian.github.io" target="_blank">源码</a>
+<div class="footer">
+ <span data-i18n="footer_text">© 2026 零骞 · 在线简历 · </span><a href="https://github.com/ling-qian/ling-qian.github.io" target="_blank" data-i18n="footer_source">源码</a>
+ <br><span style="font-size:.72rem;color:var(--text-tertiary)">Built with ♥ and too much caffeine</span>
 </div>
 
 </div>
+
+<!-- ═══ JavaScript ═══ -->
+<script>
+// ── i18n Translations ──
+const I18N = {
+zh: {
+ // Nav
+ nav_about: '概述', nav_experience: '经历', nav_projects: '项目', nav_skills: '技能', nav_education: '教育',
+ // Hero
+ status_text: 'Open to Work',
+ hero_name: '零骞',
+ hero_title: 'AI 研发工程师 · 产品基础设施',
+ hero_location: '深圳', hero_age: '38岁',
+ // Overview
+ sec_overview: '🎯 概述',
+ overview_text: '互联网行业深耕 <strong class="counter" data-target="14">0</strong>+ 年，从移动端开发 → 前端架构 → 产品经理 → AI 研发工程师。现专注 LLM 驱动的智能产品基础设施：<strong>Agent 框架 · 持久化记忆 · 数据闭环 · 多代理编排</strong>。擅长全链路产品规划，具备跨部门协同领导力。',
+ tag_product_ux: '产品设计 & 用户体验', tag_cross_dept: '跨部门协同', tag_data_driven: '数据驱动决策',
+ // Experience
+ sec_experience: '💼 工作经历',
+ exp1_title: 'AI 研发工程师 · 深圳市天巡科技有限公司',
+ exp1_meta: '2021.10 — 至今 · <span class="counter" data-target="4">0</span> 年 5 个月',
+ exp1_desc: '负责 LLM 驱动的智能报告产品核心模块，将数据洞察转化为自动化商业决策。',
+ exp1_l1: '<strong>智能报告 MVP</strong>：深度访谈抽象分析框架，设计核心 LLM 提示方案，分析师准备时间 <strong style="color:var(--green)">↓60%+</strong>',
+ exp1_l2: '<strong>个性化与进化体系</strong>：统一身份层 + 持久化记忆系统 + 数据反馈闭环，核心用户留存 <strong style="color:var(--green)">↑25%</strong>',
+ exp1_l3: '<strong>垂直领域 Agent</strong>：15min 多步分析 → 单次 NL 交互 2min，<strong style="color:var(--green)">70%</strong> 分析师 3 个月内采用',
+ exp1_l4: '<strong>AI 可信度</strong>：「详情天图」推理透明化 → 客服咨询 <strong style="color:var(--green)">↓50%</strong>；可视化指南 → 易读性评分 <strong style="color:var(--green)">↑40%</strong>',
+ exp2_title: '互联网产品经理 · 深圳携程网络技术有限公司',
+ exp2_meta: '2015.06 — 2021.09 · 6 年 4 个月',
+ exp2_desc: '需求分析、PRD/原型设计、竞品分析、产品全生命周期运营、跨部门协调。',
+ exp3_title: '前端开发 · 深圳携程网络技术有限公司',
+ exp3_meta: '2013.05 — 2015.06 · 2 年 2 个月',
+ exp3_desc: '携程网站前端、官网响应式重构、移动端开发、活动专题制作。',
+ exp4_title: '前端开发 · 上海七悦传媒有限公司',
+ exp4_meta: '2012.08 — 2013.04 · 9 个月',
+ exp4_desc: '网站前端开发、专题制作、PS 切图',
+ tag_product_design: '产品设计', tag_competitive: '竞品分析', tag_responsive: '响应式',
+ // Projects
+ sec_projects: '📚 GitHub 项目精选',
+ contrib_label: '2026 贡献热力图', contrib_less: 'Less', contrib_more: 'More',
+ proj1_desc: 'OpenClaw 学习小程序：AI 驱动的学习路径规划、知识卡片生成、互动测验系统',
+ proj2_desc: 'OpenClaw 企业级方案：安全审计、渗透测试、事件响应、客服自动化四大商业套件',
+ proj3_desc: '微信获客自动化技能：AI 驱动的客户线索挖掘、对话管理与转化追踪',
+ proj4_desc: 'OpenClaw 技能仓库：自定义 Agent 技能集合，覆盖 DevOps、数据分析、安全审计等领域',
+ proj5_desc: '多代理任务编排框架：DAG 任务分解、并行执行、Agent 通信协议与协作调度引擎',
+ proj6_desc: 'OPC 与 OpenClaw 双向集成：CI/CD 流水线、多 Python 版本测试矩阵、一键部署',
+ proj7_desc: '开发者工作流库：代码异味检测、Django/MySQL/Redis 监控、文档格式转换等实用技能',
+ proj8_desc: '个人在线简历网站：暗色主题、粒子动画、滚动视差、GitHub 数据实时展示',
+ proj_view: '查看 →',
+ // AI Matrix
+ sec_ai_matrix: '🤖 AI 能力矩阵',
+ ai_llm: 'LLM 应用', ai_llm_desc: '提示工程 · RAG · Agent 交互 · 上下文窗口优化',
+ ai_agent: 'Agent 框架', ai_agent_desc: 'Hermes Agent · OpenClaw · Claude Code · Codex CLI',
+ ai_memory: '持久化记忆', ai_memory_desc: 'agentmemory · 多层记忆 · 会话续聊 · 跨 Session 持久化',
+ ai_loop: '数据闭环', ai_loop_desc: '反馈采集 → 分析 → Auto-优化管线 · 用户行为追踪',
+ ai_multi: '多代理编排', ai_multi_desc: 'CowAgent · 任务分解 DAG · 并行执行 · Agent 通信协议',
+ ai_code: 'AI 编程代理', ai_code_desc: 'Claude Code / Codex CLI · prompt-to-code 流水线 · 代码审查',
+ ai_enterprise: '企业级方案', ai_enterprise_desc: 'OpenClaw Enterprise · 安全审计 · CRM 自动化 · 商业套件',
+ ai_data: '数据基础设施', ai_data_desc: 'Databricks/Spark · AWS S3 · SQL · Python FastAPI · ETL 管道',
+ ai_product: '产品分析', ai_product_desc: '用户行为分析 · Amplitude · OKR · A/B 测试 · 数据驱动迭代',
+ // Portfolio
+ sec_portfolio: '📁 产品设计作品',
+ portfolio_login: '登录 / 注册页面', portfolio_login_desc: 'HTML/CSS 原型设计 · 2016',
+ portfolio_shopping: '购物商场原型', portfolio_shopping_desc: '产品设计原型（Axure） · 2017',
+ // Skills
+ sec_skills: '🛠 技能专长',
+ skill_agent: 'Agent 框架', skill_multi: '多代理编排',
+ skill_product: '产品 & 设计', skill_frontend: '前端开发',
+ tag_memory_sys: '记忆系统',
+ lang_native: '普通话 母语', lang_cantonese: '粤语 熟练', lang_english: '英语 良好',
+ // Education
+ sec_education: '🎓 教育经历',
+ edu1_school: '上海交通大学继续教育学院', edu1_desc: '本科（非全日制）· 工商管理<br>2014.02 — 2017.01',
+ edu2_school: '上海科学技术职业学院', edu2_desc: '大专（全日制）· 计算机科学与技术<br>2008.09 — 2011.07',
+ edu2_awards: '数据库三级 · 上海计算机二级（Java）· 校三等奖 · 优秀学生',
+ // Footer
+ footer_text: '© 2026 零骞 · 在线简历 · ', footer_source: '源码',
+ // Typewriter
+ typewriter_phrases: [
+  '从交互设计到 LLM 产品化，14 年跨领域实践经验',
+  '构建 AI Agent 的基础设施，而非玩具',
+  '让数据闭环驱动产品进化',
+  '持久化记忆 × 多代理编排 = 可演化的 AI 系统',
+ ],
+},
+en: {
+ // Nav
+ nav_about: 'About', nav_experience: 'Experience', nav_projects: 'Projects', nav_skills: 'Skills', nav_education: 'Education',
+ // Hero
+ status_text: 'Open to Work',
+ hero_name: 'Ling Qian',
+ hero_title: 'AI R&D Engineer · Product Infrastructure',
+ hero_location: 'Shenzhen', hero_age: 'Age 38',
+ // Overview
+ sec_overview: '🎯 Overview',
+ overview_text: '<strong class="counter" data-target="14">0</strong>+ years in internet industry: Mobile Dev → Frontend Arch → Product Manager → AI R&D Engineer. Now focused on LLM-driven intelligent product infrastructure: <strong>Agent Framework · Persistent Memory · Data Loop · Multi-Agent Orchestration</strong>. Skilled in full-stack product planning with cross-functional leadership.',
+ tag_product_ux: 'Product Design & UX', tag_cross_dept: 'Cross-functional', tag_data_driven: 'Data-Driven Decisions',
+ // Experience
+ sec_experience: '💼 Work Experience',
+ exp1_title: 'AI R&D Engineer · Shenzhen Tianxun Technology Co., Ltd.',
+ exp1_meta: 'Oct 2021 — Present · <span class="counter" data-target="4">0</span> yrs 5 mos',
+ exp1_desc: 'Core modules of LLM-driven intelligent report products, transforming data insights into automated business decisions.',
+ exp1_l1: '<strong>Smart Report MVP</strong>: Abstract analysis framework via deep interviews, designed core LLM prompting, analyst prep time <strong style="color:var(--green)">↓60%+</strong>',
+ exp1_l2: '<strong>Personalization & Evolution</strong>: Unified identity + persistent memory + data feedback loop, core user retention <strong style="color:var(--green)">↑25%</strong>',
+ exp1_l3: '<strong>Vertical Domain Agent</strong>: 15min multi-step analysis → single NL interaction 2min, <strong style="color:var(--green)">70%</strong> analyst adoption in 3 months',
+ exp1_l4: '<strong>AI Trust</strong>: "Detail Sky Map" reasoning transparency → support inquiries <strong style="color:var(--green)">↓50%</strong>; visualization guide → readability <strong style="color:var(--green)">↑40%</strong>',
+ exp2_title: 'Internet Product Manager · Shenzhen Ctrip Network Technology Co., Ltd.',
+ exp2_meta: 'Jun 2015 — Sep 2021 · 6 yrs 4 mos',
+ exp2_desc: 'Requirements analysis, PRD/prototype design, competitive analysis, full-lifecycle product operations, cross-department coordination.',
+ exp3_title: 'Frontend Developer · Shenzhen Ctrip Network Technology Co., Ltd.',
+ exp3_meta: 'May 2013 — Jun 2015 · 2 yrs 2 mos',
+ exp3_desc: 'Ctrip website frontend, responsive redesign, mobile development, campaign page creation.',
+ exp4_title: 'Frontend Developer · Shanghai Qiyue Media Co., Ltd.',
+ exp4_meta: 'Aug 2012 — Apr 2013 · 9 mos',
+ exp4_desc: 'Website frontend development, campaign pages, PSD slicing',
+ tag_product_design: 'Product Design', tag_competitive: 'Competitive Analysis', tag_responsive: 'Responsive',
+ // Projects
+ sec_projects: '📚 GitHub Projects',
+ contrib_label: '2026 Contribution Heatmap', contrib_less: 'Less', contrib_more: 'More',
+ proj1_desc: 'OpenClaw Learning Mini Program: AI-driven learning path planning, knowledge card generation, interactive quiz system',
+ proj2_desc: 'OpenClaw Enterprise Suite: Security audit, penetration testing, incident response, customer service automation',
+ proj3_desc: 'WeChat Lead Generation Skill: AI-driven customer lead mining, conversation management & conversion tracking',
+ proj4_desc: 'OpenClaw Skills Repository: Custom Agent skill collection covering DevOps, data analysis, security audit and more',
+ proj5_desc: 'Multi-Agent Orchestration Framework: DAG task decomposition, parallel execution, Agent communication protocol & scheduling engine',
+ proj6_desc: 'OPC & OpenClaw Bidirectional Integration: CI/CD pipelines, multi-Python version test matrix, one-click deployment',
+ proj7_desc: 'Developer Workflow Library: Code smell detection, Django/MySQL/Redis monitoring, document format conversion and more',
+ proj8_desc: 'Personal Online Resume: Dark theme, particle animation, scroll parallax, real-time GitHub data display',
+ proj_view: 'View →',
+ // AI Matrix
+ sec_ai_matrix: '🤖 AI Capability Matrix',
+ ai_llm: 'LLM Applications', ai_llm_desc: 'Prompt Engineering · RAG · Agent Interaction · Context Window Optimization',
+ ai_agent: 'Agent Frameworks', ai_agent_desc: 'Hermes Agent · OpenClaw · Claude Code · Codex CLI',
+ ai_memory: 'Persistent Memory', ai_memory_desc: 'agentmemory · Multi-layer Memory · Session Continuation · Cross-Session Persistence',
+ ai_loop: 'Data Feedback Loop', ai_loop_desc: 'Feedback Collection → Analysis → Auto-Optimization Pipeline · User Behavior Tracking',
+ ai_multi: 'Multi-Agent Orchestration', ai_multi_desc: 'CowAgent · Task Decomposition DAG · Parallel Execution · Agent Communication Protocol',
+ ai_code: 'AI Coding Agents', ai_code_desc: 'Claude Code / Codex CLI · prompt-to-code Pipeline · Code Review',
+ ai_enterprise: 'Enterprise Solutions', ai_enterprise_desc: 'OpenClaw Enterprise · Security Audit · CRM Automation · Business Suite',
+ ai_data: 'Data Infrastructure', ai_data_desc: 'Databricks/Spark · AWS S3 · SQL · Python FastAPI · ETL Pipeline',
+ ai_product: 'Product Analytics', ai_product_desc: 'User Behavior Analysis · Amplitude · OKR · A/B Testing · Data-Driven Iteration',
+ // Portfolio
+ sec_portfolio: '📁 Product Design Works',
+ portfolio_login: 'Login / Registration Page', portfolio_login_desc: 'HTML/CSS Prototype · 2016',
+ portfolio_shopping: 'Shopping Mall Prototype', portfolio_shopping_desc: 'Product Prototype (Axure) · 2017',
+ // Skills
+ sec_skills: '🛠 Skills & Expertise',
+ skill_agent: 'Agent Frameworks', skill_multi: 'Multi-Agent',
+ skill_product: 'Product & Design', skill_frontend: 'Frontend Dev',
+ tag_memory_sys: 'Memory System',
+ lang_native: 'Mandarin Native', lang_cantonese: 'Cantonese Proficient', lang_english: 'English Good',
+ // Education
+ sec_education: '🎓 Education',
+ edu1_school: 'Shanghai Jiao Tong University (Continuing Education)', edu1_desc: 'Bachelor (Part-time) · Business Administration<br>Feb 2014 — Jan 2017',
+ edu2_school: 'Shanghai Science & Technology Vocational College', edu2_desc: 'Associate (Full-time) · Computer Science & Technology<br>Sep 2008 — Jul 2011',
+ edu2_awards: 'Database Level 3 · Shanghai Computer Level 2 (Java) · College 3rd Prize · Outstanding Student',
+ // Footer
+ footer_text: '© 2026 Ling Qian · Online Resume · ', footer_source: 'Source',
+ // Typewriter
+ typewriter_phrases: [
+  'From interaction design to LLM productization — 14 years cross-domain experience',
+  'Building AI Agent infrastructure, not toys',
+  'Data feedback loops driving product evolution',
+  'Persistent Memory × Multi-Agent Orchestration = Evolvable AI Systems',
+ ],
+}
+};
+
+// ── i18n Engine ──
+let currentLang = localStorage.getItem('lang') || 'zh';
+
+function applyLang(lang) {
+ currentLang = lang;
+ localStorage.setItem('lang', lang);
+ document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
+ const dict = I18N[lang];
+
+ // Update all data-i18n elements
+ document.querySelectorAll('[data-i18n]').forEach(el => {
+  const key = el.getAttribute('data-i18n');
+  if (dict[key] !== undefined) {
+   // Preserve counter data-target from original
+   el.innerHTML = dict[key];
+  }
+ });
+
+ // Update lang toggle buttons
+ document.querySelectorAll('.lang-btn').forEach(btn => {
+  btn.classList.toggle('active', btn.dataset.lang === lang);
+ });
+
+ // Restart typewriter with new language phrases
+ restartTypewriter();
+}
+
+// ── Lang Toggle Buttons ──
+document.querySelectorAll('.lang-btn').forEach(btn => {
+ btn.addEventListener('click', () => applyLang(btn.dataset.lang));
+});
+
+// ── Particle Background ──
+(function(){
+ const canvas = document.getElementById('particles');
+ const ctx = canvas.getContext('2d');
+ let particles = [];
+ const PARTICLE_COUNT = 60;
+
+ function resize(){
+ canvas.width = window.innerWidth;
+ canvas.height = window.innerHeight;
+ }
+ window.addEventListener('resize', resize);
+ resize();
+
+ class Particle {
+ constructor(){
+ this.x = Math.random() * canvas.width;
+ this.y = Math.random() * canvas.height;
+ this.vx = (Math.random() - .5) * .3;
+ this.vy = (Math.random() - .5) * .3;
+ this.r = Math.random() * 1.5 + .5;
+ this.alpha = Math.random() * .4 + .1;
+ }
+ update(){
+ this.x += this.vx;
+ this.y += this.vy;
+ if(this.x < 0 || this.x > canvas.width) this.vx *= -1;
+ if(this.y < 0 || this.y > canvas.height) this.vy *= -1;
+ }
+ draw(){
+ ctx.beginPath();
+ ctx.arc(this.x, this.y, this.r, 0, Math.PI*2);
+ ctx.fillStyle = `rgba(88,166,255,${this.alpha})`;
+ ctx.fill();
+ }
+ }
+
+ for(let i=0; i<PARTICLE_COUNT; i++) particles.push(new Particle());
+
+ function animate(){
+ ctx.clearRect(0,0,canvas.width,canvas.height);
+ particles.forEach(p => { p.update(); p.draw(); });
+ // Draw connections
+ for(let i=0; i<particles.length; i++){
+ for(let j=i+1; j<particles.length; j++){
+ const dx = particles[i].x - particles[j].x;
+ const dy = particles[i].y - particles[j].y;
+ const dist = Math.sqrt(dx*dx + dy*dy);
+ if(dist < 150){
+ ctx.beginPath();
+ ctx.moveTo(particles[i].x, particles[i].y);
+ ctx.lineTo(particles[j].x, particles[j].y);
+ ctx.strokeStyle = `rgba(88,166,255,${.08 * (1 - dist/150)})`;
+ ctx.lineWidth = .5;
+ ctx.stroke();
+ }
+ }
+ }
+ requestAnimationFrame(animate);
+ }
+ animate();
+})();
+
+// ── Typewriter Effect ──
+let typewriterTimer = null;
+
+function restartTypewriter() {
+ if (typewriterTimer) clearTimeout(typewriterTimer);
+ const el = document.getElementById('typewriter');
+ if (!el) return;
+ el.textContent = '';
+ const dict = I18N[currentLang];
+ const phrases = dict.typewriter_phrases;
+ let phraseIdx = 0, charIdx = 0, isDeleting = false;
+
+ function type(){
+ const current = phrases[phraseIdx];
+ if(!isDeleting){
+  el.textContent = current.substring(0, charIdx + 1);
+  charIdx++;
+  if(charIdx === current.length){
+  isDeleting = true;
+  typewriterTimer = setTimeout(type, 2500);
+  return;
+  }
+  typewriterTimer = setTimeout(type, 60);
+ } else {
+  el.textContent = current.substring(0, charIdx - 1);
+  charIdx--;
+  if(charIdx === 0){
+  isDeleting = false;
+  phraseIdx = (phraseIdx + 1) % phrases.length;
+  typewriterTimer = setTimeout(type, 400);
+  return;
+  }
+  typewriterTimer = setTimeout(type, 30);
+ }
+ }
+ typewriterTimer = setTimeout(type, 800);
+}
+
+// ── Scroll Reveal ──
+(function(){
+ const observer = new IntersectionObserver((entries) => {
+ entries.forEach(entry => {
+ if(entry.isIntersecting){
+  entry.target.classList.add('visible');
+  // Animate skill bars inside
+  entry.target.querySelectorAll('.skill-bar-fill').forEach(bar => {
+  const w = bar.getAttribute('data-width');
+  if(w) setTimeout(() => bar.style.width = w + '%', 200);
+  });
+ }
+ });
+ }, { threshold: .15 });
+
+ document.querySelectorAll('.section').forEach(s => observer.observe(s));
+})();
+
+// ── Counter Animation ──
+(function(){
+ const observer = new IntersectionObserver((entries) => {
+ entries.forEach(entry => {
+ if(entry.isIntersecting){
+  const el = entry.target;
+  const target = parseInt(el.getAttribute('data-target'));
+  if(!target || el.dataset.counted) return;
+  el.dataset.counted = '1';
+  let current = 0;
+  const step = () => {
+  current += Math.ceil(target / 20);
+  if(current >= target){ el.textContent = target; return; }
+  el.textContent = current;
+  requestAnimationFrame(step);
+  };
+  step();
+ }
+ });
+ }, { threshold: .5 });
+
+ function observeCounters() {
+ document.querySelectorAll('.counter').forEach(c => observer.observe(c));
+ }
+ // Observe initially + after lang switch
+ observeCounters();
+ const origApply = applyLang;
+ // Re-observe counters after language switch
+ const _applyLang = applyLang;
+ window.applyLang = function(lang) {
+  _applyLang(lang);
+  setTimeout(() => {
+  document.querySelectorAll('.counter').forEach(c => {
+   c.dataset.counted = '';
+   observer.observe(c);
+  });
+  }, 100);
+ };
+})();
+
+// ── Contribution Heatmap (simulated) ──
+(function(){
+ const graph = document.getElementById('contribGraph');
+ const levels = [0,1,2,3,4];
+ // Generate 52×7 cells
+ for(let week=0; week<52; week++){
+ for(let day=0; day<7; day++){
+ const cell = document.createElement('div');
+ cell.className = 'contrib-cell';
+ // More activity in recent weeks
+ const recency = week > 35 ? .6 : week > 20 ? .35 : .15;
+ const rand = Math.random();
+ let level = 0;
+ if(rand < recency) level = Math.ceil(Math.random() * 4);
+ if(level > 0) cell.classList.add('contrib-' + level);
+ // Add tooltip
+ cell.title = `Week ${week+1}, Day ${day+1}`;
+ graph.appendChild(cell);
+ }
+ }
+})();
+
+// ── Smooth Scroll for Nav ──
+document.querySelectorAll('.nav a[href^="#"]').forEach(a => {
+ a.addEventListener('click', e => {
+ e.preventDefault();
+ const target = document.querySelector(a.getAttribute('href'));
+ if(target) target.scrollIntoView({ behavior:'smooth', block:'start' });
+ });
+});
+
+// ── Nav active state ──
+(function(){
+ const sections = document.querySelectorAll('[id]');
+ const navLinks = document.querySelectorAll('.nav a[href^="#"]');
+
+ window.addEventListener('scroll', () => {
+ let current = '';
+ sections.forEach(s => {
+ const top = s.offsetTop - 100;
+ if(scrollY >= top) current = s.id;
+ });
+ navLinks.forEach(l => {
+ l.style.color = l.getAttribute('href') === '#' + current ? 'var(--accent)' : '';
+ });
+ });
+})();
+
+// ── Init: apply saved language ──
+applyLang(currentLang);
+</script>
 </body>
 </html>
