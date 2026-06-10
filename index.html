@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>零骞 — AI 研发工程师 · 个人简历</title>
+<style>
+  :root { --accent: #2563eb; --bg: #f8fafc; --card: #fff; --text: #1e293b; --muted: #64748b; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+  .container { max-width: 900px; margin: 0 auto; padding: 24px 20px; }
+
+  /* Hero */
+  .hero { background: linear-gradient(135deg, #1e293b 0%, #334155 100%); color: #fff; padding: 60px 0 40px; }
+  .hero h1 { font-size: 2.2rem; font-weight: 700; margin-bottom: 4px; }
+  .hero .subtitle { font-size: 1.1rem; color: #94a3b8; margin-bottom: 16px; }
+  .hero .info-grid { display: flex; flex-wrap: wrap; gap: 12px 24px; font-size: 0.9rem; }
+  .hero .info-grid span { color: #cbd5e1; }
+  .hero .info-grid i { display: inline-block; width: 16px; margin-right: 4px; opacity: .7; }
+
+  /* Section */
+  .section { background: var(--card); border-radius: 12px; padding: 28px 32px; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,.06); }
+  .section h2 { font-size: 1.2rem; font-weight: 600; color: var(--accent); margin-bottom: 16px; padding-bottom: 8px; border-bottom: 2px solid #e2e8f0; display: flex; align-items: center; gap: 8px; }
+  .section h3 { font-size: 1rem; font-weight: 600; margin-bottom: 4px; }
+  .section .meta { color: var(--muted); font-size: 0.85rem; margin-bottom: 8px; }
+
+  /* Tags */
+  .tags { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0; }
+  .tags span { background: #eef2ff; color: var(--accent); padding: 2px 10px; border-radius: 20px; font-size: 0.78rem; }
+
+  /* Badge */
+  .badge { display: inline-block; background: var(--accent); color: #fff; padding: 2px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: 500; margin-left: 6px; }
+  .badge-green { background: #059669; }
+  .badge-amber { background: #d97706; }
+
+  /* Timeline */
+  .timeline-item { position: relative; padding-left: 20px; margin-bottom: 20px; border-left: 2px solid #e2e8f0; }
+  .timeline-item:last-child { margin-bottom: 0; }
+  .timeline-item::before { content: ''; position: absolute; left: -5px; top: 6px; width: 8px; height: 8px; border-radius: 50%; background: var(--accent); }
+  .timeline-item p { font-size: 0.9rem; color: #475569; }
+
+  /* Links */
+  .links { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 12px; }
+  .links a { color: var(--accent); text-decoration: none; font-size: 0.9rem; display: flex; align-items: center; gap: 4px; }
+  .links a:hover { text-decoration: underline; }
+
+  @media (max-width: 640px) {
+    .hero { padding: 40px 0 28px; }
+    .hero h1 { font-size: 1.6rem; }
+    .section { padding: 20px 16px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Hero -->
+<div class="hero">
+  <div class="container">
+    <h1>零骞</h1>
+    <div class="subtitle">AI 研发工程师 · 全链路产品 &amp; 基础设施</div>
+    <div class="info-grid">
+      <span>📍 深圳</span>
+      <span>📞 13524346412</span>
+      <span>✉️ 296928959@qq.com</span>
+      <span>🎂 38岁</span>
+      <span>🎓 上海交通大学 · 本科</span>
+      <span>🔗 <a href="https://github.com/ling-qian" style="color:#94a3b8;text-decoration:underline">github.com/ling-qian</a></span>
+    </div>
+    <div class="links" style="margin-top:16px">
+      <a href="https://ling-qian.github.io/prd/html/login/" target="_blank">📁 作品：登录页</a>
+      <a href="https://ling-qian.github.io/prd/html/shopping/start.html" target="_blank">📁 作品：购物商场</a>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+
+<!-- 个人优势 -->
+<div class="section">
+  <h2>🎯 个人优势</h2>
+  <p style="margin-bottom:10px">在互联网行业深耕 <strong>14+ 年</strong>，从移动端开发到前端架构，再到 AI 产品基础设施研发，始终保持学习与跨领域实践。</p>
+  <div class="tags">
+    <span>AI 产品基础设施</span>
+    <span>LLM 应用架构</span>
+    <span>Agent 系统设计</span>
+    <span>用户体验设计</span>
+    <span>跨部门协同</span>
+    <span>数据驱动决策</span>
+  </div>
+</div>
+
+<!-- AI 基础设施专题 -->
+<div class="section">
+  <h2>🤖 AI 能力矩阵</h2>
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px">
+    <div style="background:#f1f5f9;border-radius:8px;padding:12px"><strong>🧠 LLM 应用</strong><br><span style="font-size:0.85rem;color:#475569">提示工程 · RAG · Agent 交互设计</span></div>
+    <div style="background:#f1f5f9;border-radius:8px;padding:12px"><strong>🔧 Agent 框架</strong><br><span style="font-size:0.85rem;color:#475569">Hermes Agent · OpenClaw · Claude Code</span></div>
+    <div style="background:#f1f5f9;border-radius:8px;padding:12px"><strong>🏗️ 持久化记忆</strong><br><span style="font-size:0.85rem;color:#475569">agentmemory · 多层记忆架构 · 会话续聊</span></div>
+    <div style="background:#f1f5f9;border-radius:8px;padding:12px"><strong>🔄 数据闭环</strong><br><span style="font-size:0.85rem;color:#475569">反馈采集 → 分析 → Auto-优化管线</span></div>
+    <div style="background:#f1f5f9;border-radius:8px;padding:12px"><strong>🐄 CowAgent</strong><br><span style="font-size:0.85rem;color:#475569">多代理编排 · 任务分解 · 并行执行</span></div>
+    <div style="background:#f1f5f9;border-radius:8px;padding:12px"><strong>⚡ Codex CLI</strong><br><span style="font-size:0.85rem;color:#475569">AI 编程代理 · prompt-to-code 流水线</span></div>
+    <div style="background:#f1f5f9;border-radius:8px;padding:12px"><strong>🐍 Python 全栈</strong><br><span style="font-size:0.85rem;color:#475569">FastAPI · Databricks/Spark · AWS S3</span></div>
+    <div style="background:#f1f5f9;border-radius:8px;padding:12px"><strong>📊 产品分析</strong><br><span style="font-size:0.85rem;color:#475569">SQL · Amplitude · 用户行为分析</span></div>
+  </div>
+</div>
+
+<!-- 工作经历 -->
+<div class="section">
+  <h2>💼 工作经历</h2>
+
+  <div class="timeline-item">
+    <h3>AI 研发工程师 · 深圳市天巡科技有限公司</h3>
+    <div class="meta">2021.10 — 至今 · 4年5个月</div>
+    <p><strong>核心职责：</strong>LLM 驱动的智能报告产品核心模块规划与实施，将数据洞察转化为自动化、可操作的商业决策。</p>
+    <ul style="margin:8px 0 0 18px;font-size:0.9rem;color:#475569;list-style:disc">
+      <li><strong>智能报告 MVP 从 0 到 1</strong>：深度访谈抽象分析框架，设计核心 LLM 提示方案，将分析师准备基础材料的时间平均减少 <strong>60%+</strong>，成为团队标准工具。</li>
+      <li><strong>个性化与进化产品体系</strong>：主导统一身份层、持久化记忆系统（支持复杂会话中断续聊）、数据反馈闭环（采集→分析→调优）。核心用户留存率提升 <strong>25%</strong>。</li>
+      <li><strong>垂直领域智能体产品化</strong>：将繁琐的多步数据分析（15 分钟）抽象为一次自然语言交互（2 分钟），三个月内 <strong>70%</strong> 的活跃分析师采用。</li>
+      <li><strong>AI 可信度提升</strong>：主导「详情天图」推理过程透明化，客服咨询量下降 <strong>50%</strong>；制定《可视化与故事指南》，报告「易读性」评分提升 <strong>40%</strong>。</li>
+    </ul>
+    <div class="tags" style="margin-top:6px">
+      <span>LLM</span><span>Prompt Engineering</span><span>RAG</span><span>Agent</span>
+      <span>Python</span><span>Databricks</span><span>AWS S3</span><span>SQL</span>
+    </div>
+  </div>
+
+  <div class="timeline-item">
+    <h3>互联网产品经理 · 深圳携程网络技术有限公司</h3>
+    <div class="meta">2015.06 — 2021.09 · 6年4个月</div>
+    <p>用户需求分析、PRD 编写、原型设计（Axure）、竞品分析、产品全生命周期运营、跨部门协调。</p>
+    <div class="tags" style="margin-top:6px">
+      <span>产品设计</span><span>Axure</span><span>PRD</span><span>竞品分析</span>
+      <span>用户研究</span><span>数据驱动</span><span>Jira</span><span>Confluence</span>
+    </div>
+  </div>
+
+  <div class="timeline-item">
+    <h3>前端开发 · 深圳携程网络技术有限公司</h3>
+    <div class="meta">2013.05 — 2015.06 · 2年2个月</div>
+    <p>携程网站前端开发、官网 www.mvm18.com 响应式重构、移动端 m.mvm18.com 开发、各类活动专题。</p>
+    <div class="tags" style="margin-top:6px">
+      <span>HTML5/CSS3</span><span>jQuery</span><span>响应式</span>
+      <span>Git</span><span>Chrome DevTools</span><span>Fiddler</span>
+    </div>
+  </div>
+
+  <div class="timeline-item">
+    <h3>前端开发 · 上海七悦传媒有限公司</h3>
+    <div class="meta">2012.08 — 2013.04 · 9个月</div>
+    <p>公司网站 www.icb2c.com 前端开发、专题制作、PS 切图</p>
+  </div>
+</div>
+
+<!-- 项目与作品 -->
+<div class="section">
+  <h2>📁 项目与作品</h2>
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px">
+    <a href="https://ling-qian.github.io/prd/html/login/" target="_blank" style="display:block;background:#f1f5f9;border-radius:8px;padding:14px;text-decoration:none;color:inherit">
+      <strong>🔐 登录/注册页面</strong>
+      <div style="font-size:0.85rem;color:#475569;margin-top:4px">HTML/CSS 原型 · 2016</div>
+    </a>
+    <a href="https://ling-qian.github.io/prd/html/shopping/start.html" target="_blank" style="display:block;background:#f1f5f9;border-radius:8px;padding:14px;text-decoration:none;color:inherit">
+      <strong>🛒 购物商场原型</strong>
+      <div style="font-size:0.85rem;color:#475569;margin-top:4px">产品设计原型 · 2017</div>
+    </a>
+    <a href="https://github.com/ling-qian" target="_blank" style="display:block;background:#f1f5f9;border-radius:8px;padding:14px;text-decoration:none;color:inherit">
+      <strong>🐙 GitHub 主页</strong>
+      <div style="font-size:0.85rem;color:#475569;margin-top:4px">开源项目 · AI Agent 实践</div>
+    </a>
+  </div>
+</div>
+
+<!-- 技能 -->
+<div class="section">
+  <h2>🛠️ 技能语言</h2>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:0.9rem">
+    <div><strong>AI/LLM</strong>：提示工程 · RAG · Agent · Hermes · Claude Code · Codex</div>
+    <div><strong>后端</strong>：Python · FastAPI · Databricks/Spark · AWS S3</div>
+    <div><strong>前端</strong>：HTML5/CSS3 · JavaScript · jQuery · 响应式</div>
+    <div><strong>产品</strong>：Jira · Confluence · Figma · Axure · SQL · Amplitude</div>
+    <div><strong>移动</strong>：iOS/Android 界面设计 · 移动 Web</div>
+    <div><strong>语言</strong>：普通话(母语) · 粤语(熟练) · 英语(良好)</div>
+  </div>
+</div>
+
+<!-- 教育 -->
+<div class="section">
+  <h2>🎓 教育经历</h2>
+  <div class="timeline-item">
+    <h3>上海交通大学继续教育学院 · 本科（非全日制）</h3>
+    <div class="meta">2014.02 — 2017.01 · 工商管理</div>
+  </div>
+  <div class="timeline-item">
+    <h3>上海科学技术职业学院 · 大专（全日制）</h3>
+    <div class="meta">2008.09 — 2011.07 · 计算机科学与技术</div>
+    <p style="font-size:0.85rem;color:#475569">数据库三级 · 上海计算机二级（Java）</p>
+  </div>
+</div>
+
+<!-- Footer -->
+<div style="text-align:center;padding:20px;color:var(--muted);font-size:0.8rem">
+  © 2025 零骞 · 更新于 2025 · 在线简历
+</div>
+
+</div>
+</body>
+</html>
