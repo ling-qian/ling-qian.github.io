@@ -4,6 +4,16 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>零骞 · AI 研发工程师 — 在线简历</title>
+<meta name="description" content="零骞 — AI 研发工程师，14年互联网经验，专注 LLM 驱动的智能产品基础设施：Agent 框架、持久化记忆、数据闭环、多代理编排" />
+<meta name="keywords" content="AI工程师,LLM,Agent,零骞,简历,RAG,Prompt Engineering" />
+<meta name="author" content="零骞" />
+<meta property="og:title" content="零骞 · AI 研发工程师" />
+<meta property="og:description" content="14年互联网经验，专注 LLM 驱动的智能产品基础设施" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://ling-qian.github.io/" />
+<meta property="og:image" content="https://ling-qian.github.io/og-avatar.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧠</text></svg>" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
 <style>
@@ -52,6 +62,10 @@ code, .mono { font-family: 'JetBrains Mono', monospace; }
 
 /* ─── Particle Canvas ─── */
 #particles { position: fixed; top:0; left:0; width:100%; height:100%; z-index:0; pointer-events:none; }
+
+/* ─── Phone Obfuscation ─── */
+.phone-reveal { cursor: pointer; border-bottom: 1px dashed var(--text-tertiary); }
+.phone-reveal:hover { border-bottom-color: var(--accent); }
 
 /* ─── Page Layout ─── */
 .page { position: relative; z-index:1; max-width: 980px; margin: 0 auto; padding: 40px 24px 80px; }
@@ -225,6 +239,7 @@ code, .mono { font-family: 'JetBrains Mono', monospace; }
 .contrib-2 { background:rgba(63,185,80,.5); }
 .contrib-3 { background:rgba(63,185,80,.75); }
 .contrib-4 { background:var(--green); }
+.contrib-loading { font-size:.78rem; color:var(--text-tertiary); padding:8px 0; }
 
 /* ─── Skill Bar ─── */
 .skill-bar-wrap { margin:8px 0; }
@@ -246,6 +261,41 @@ code, .mono { font-family: 'JetBrains Mono', monospace; }
 
 /* ─── Footer ─── */
 .footer { text-align:center; padding:40px 0 16px; color:var(--text-tertiary); font-size:.78rem; border-top:1px solid var(--border); margin-top:24px; }
+
+/* ─── Reduced Motion ─── */
+@media (prefers-reduced-motion: reduce) {
+ *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+ #particles { display: none; }
+ .section { opacity: 1; transform: none; }
+ .skill-bar-fill { transition: none; }
+}
+
+/* ─── Print ─── */
+@media print {
+ #particles, .nav, .lang-toggle { display: none !important; }
+ body { background: #fff; color: #1a1a1a; }
+ .page { padding: 0; max-width: 100%; }
+ .hero { border: 1px solid #ddd; background: #f8f8f8; break-inside: avoid; }
+ .hero::before { display: none; }
+ .hero-main h1 { background: none; -webkit-text-fill-color: #1a1a1a; }
+ .section { opacity: 1; transform: none; border: 1px solid #ddd; background: #fff; break-inside: avoid; }
+ .section:hover { border-color: #ddd; }
+ .grid-item, .project-card { border: 1px solid #ddd; background: #f8f8f8; box-shadow: none; transform: none; }
+ .project-card::before { display: none; }
+ .tag { border: 1px solid #ccc; }
+ .tag-blue { color: #0366d6; background: #f1f8ff; border-color: #c8e1ff; }
+ .tag-green { color: #22863a; background: #f0fff4; border-color: #b4dda0; }
+ .tag-purple { color: #6f42c1; background: #f6f2ff; border-color: #d2b8f0; }
+ .tag-orange { color: #b08800; background: #fff8e6; border-color: #f0d060; }
+ .tag-default { color: #586069; background: #f6f8fa; border-color: #d1d5da; }
+ .timeline::before { background: #ccc; }
+ .timeline-item::before { background: #0366d6; box-shadow: none; }
+ .status-dot { animation: none; }
+ .typewriter-cursor { display: none; }
+ .phone-reveal { border-bottom: none; cursor: default; }
+ a { color: #0366d6; }
+ .footer { border-top: 1px solid #ddd; }
+}
 
 /* ─── Mobile ─── */
 @media (max-width:700px) {
@@ -276,8 +326,8 @@ code, .mono { font-family: 'JetBrains Mono', monospace; }
  <a href="#skills" data-i18n="nav_skills">技能</a>
  <a href="#education" data-i18n="nav_education">教育</a>
  <div class="lang-toggle">
-  <button class="lang-btn active" data-lang="zh">中</button>
-  <button class="lang-btn" data-lang="en">EN</button>
+ <button class="lang-btn active" data-lang="zh">中</button>
+ <button class="lang-btn" data-lang="en">EN</button>
  </div>
 </nav>
 
@@ -296,7 +346,7 @@ code, .mono { font-family: 'JetBrains Mono', monospace; }
  </div>
  <div class="hero-meta">
  📍 <span data-i18n="hero_location">深圳</span> &nbsp;·&nbsp; <span data-i18n="hero_age">38岁</span><br>
- 📞 13524346412<br>
+ 📞 <span class="phone-reveal" data-i18n="hero_phone" data-plain="135****6412" data-full="13524346412">135****6412</span><br>
  ✉️ 296928959@qq.com<br>
  <a href="https://github.com/ling-qian" target="_blank">🐙 github.com/ling-qian</a>
  </div>
@@ -307,7 +357,7 @@ code, .mono { font-family: 'JetBrains Mono', monospace; }
 <div class="section" id="overview">
  <div class="section-title" data-i18n="sec_overview">🎯 概述</div>
  <p style="font-size:.94rem;color:var(--text-secondary);margin-bottom:16px;line-height:1.7" data-i18n="overview_text">
- 互联网行业深耕 <strong class="counter" data-target="14">0</strong>+ 年，从移动端开发 → 前端架构 → 产品经理 → AI 研发工程师。
+ 互联网行业深耕 <span class="counter" data-target="14">0</span>+ 年，从移动端开发 → 前端架构 → 产品经理 → AI 研发工程师。
  现专注 LLM 驱动的智能产品基础设施：<strong>Agent 框架 · 持久化记忆 · 数据闭环 · 多代理编排</strong>。
  擅长全链路产品规划，具备跨部门协同领导力。
  </p>
@@ -382,7 +432,8 @@ code, .mono { font-family: 'JetBrains Mono', monospace; }
  <!-- Contribution heatmap -->
  <div style="margin-bottom:20px">
  <div style="font-size:.78rem;color:var(--text-tertiary);margin-bottom:8px" data-i18n="contrib_label">2026 贡献热力图</div>
- <div class="contrib-graph" id="contribGraph"></div>
+ <div class="contrib-loading" id="contribLoading" data-i18n="contrib_loading">正在加载真实数据…</div>
+ <div class="contrib-graph" id="contribGraph" style="display:none"></div>
  <div style="display:flex;gap:4px;align-items:center;font-size:.72rem;color:var(--text-tertiary);margin-top:6px">
  <span data-i18n="contrib_less">Less</span>
  <div style="width:10px;height:10px;border-radius:2px;background:var(--surface-2)"></div>
@@ -394,72 +445,8 @@ code, .mono { font-family: 'JetBrains Mono', monospace; }
  </div>
  </div>
 
- <div class="project-grid">
-
- <div class="project-card" onclick="window.open('https://github.com/ling-qian/openclaw-learning-miniprogram','_blank')">
- <div class="proj-name"><span class="proj-icon">🎓</span> openclaw-learning-miniprogram</div>
- <div class="proj-desc" data-i18n="proj1_desc">OpenClaw 学习小程序：AI 驱动的学习路径规划、知识卡片生成、互动测验系统</div>
- <div class="proj-stats"><span>⭐ 1</span><span>📡 JavaScript</span><span>📅 2026-06</span></div>
- <div><span class="tag tag-blue">Mini Program</span><span class="tag tag-blue">AI Learning</span><span class="tag tag-green">JavaScript</span></div>
- <a href="https://github.com/ling-qian/openclaw-learning-miniprogram" class="proj-link" target="_blank" onclick="event.stopPropagation()" data-i18n="proj_view">查看 →</a>
- </div>
-
- <div class="project-card" onclick="window.open('https://github.com/ling-qian/openclaw-enterprise','_blank')">
- <div class="proj-name"><span class="proj-icon">📦</span> openclaw-enterprise</div>
- <div class="proj-desc" data-i18n="proj2_desc">OpenClaw 企业级方案：安全审计、渗透测试、事件响应、客服自动化四大商业套件</div>
- <div class="proj-stats"><span>⭐ 0</span><span>📡 Shell</span><span>📅 2026-05</span></div>
- <div><span class="tag tag-blue">Agent</span><span class="tag tag-blue">Enterprise</span><span class="tag tag-orange">Security</span></div>
- <a href="https://github.com/ling-qian/openclaw-enterprise" class="proj-link" target="_blank" onclick="event.stopPropagation()" data-i18n="proj_view">查看 →</a>
- </div>
-
- <div class="project-card" onclick="window.open('https://github.com/ling-qian/wechat-lead-generation','_blank')">
- <div class="proj-name"><span class="proj-icon">💬</span> wechat-lead-generation</div>
- <div class="proj-desc" data-i18n="proj3_desc">微信获客自动化技能：AI 驱动的客户线索挖掘、对话管理与转化追踪</div>
- <div class="proj-stats"><span>⭐ 0</span><span>📡 Python</span><span>📅 2026-05</span></div>
- <div><span class="tag tag-blue">AI</span><span class="tag tag-green">WeChat</span><span class="tag tag-default">Lead Gen</span></div>
- <a href="https://github.com/ling-qian/wechat-lead-generation" class="proj-link" target="_blank" onclick="event.stopPropagation()" data-i18n="proj_view">查看 →</a>
- </div>
-
- <div class="project-card" onclick="window.open('https://github.com/ling-qian/openclaw-skills','_blank')">
- <div class="proj-name"><span class="proj-icon">🧩</span> openclaw-skills</div>
- <div class="proj-desc" data-i18n="proj4_desc">OpenClaw 技能仓库：自定义 Agent 技能集合，覆盖 DevOps、数据分析、安全审计等领域</div>
- <div class="proj-stats"><span>⭐ 0</span><span>📡 Python</span><span>📅 2026-05</span></div>
- <div><span class="tag tag-purple">Skills</span><span class="tag tag-green">Python</span><span class="tag tag-default">Agent</span></div>
- <a href="https://github.com/ling-qian/openclaw-skills" class="proj-link" target="_blank" onclick="event.stopPropagation()" data-i18n="proj_view">查看 →</a>
- </div>
-
- <div class="project-card" onclick="window.open('https://github.com/ling-qian/CowAgent','_blank')">
- <div class="proj-name"><span class="proj-icon">🐄</span> CowAgent</div>
- <div class="proj-desc" data-i18n="proj5_desc">多代理任务编排框架：DAG 任务分解、并行执行、Agent 通信协议与协作调度引擎</div>
- <div class="proj-stats"><span>⭐ 0</span><span>📡 Python</span><span>📅 2026-06</span></div>
- <div><span class="tag tag-blue">Multi-Agent</span><span class="tag tag-purple">Orchestration</span><span class="tag tag-green">Python</span></div>
- <a href="https://github.com/ling-qian/CowAgent" class="proj-link" target="_blank" onclick="event.stopPropagation()" data-i18n="proj_view">查看 →</a>
- </div>
-
- <div class="project-card" onclick="window.open('https://github.com/ling-qian/opc-openclaw-integration','_blank')">
- <div class="proj-name"><span class="proj-icon">🔗</span> opc-openclaw-integration</div>
- <div class="proj-desc" data-i18n="proj6_desc">OPC 与 OpenClaw 双向集成：CI/CD 流水线、多 Python 版本测试矩阵、一键部署</div>
- <div class="proj-stats"><span>⭐ 1</span><span>📡 JavaScript</span><span>📅 2026-05</span></div>
- <div><span class="tag tag-purple">OPC</span><span class="tag tag-green">CI/CD</span><span class="tag tag-default">Integration</span></div>
- <a href="https://github.com/ling-qian/opc-openclaw-integration" class="proj-link" target="_blank" onclick="event.stopPropagation()" data-i18n="proj_view">查看 →</a>
- </div>
-
- <div class="project-card" onclick="window.open('https://github.com/ling-qian/openclaw-dev-workflows','_blank')">
- <div class="proj-name"><span class="proj-icon">⚙️</span> openclaw-dev-workflows</div>
- <div class="proj-desc" data-i18n="proj7_desc">开发者工作流库：代码异味检测、Django/MySQL/Redis 监控、文档格式转换等实用技能</div>
- <div class="proj-stats"><span>⭐ 0</span><span>📡 Python</span><span>📅 2026-05</span></div>
- <div><span class="tag tag-blue">DevOps</span><span class="tag tag-orange">Monitoring</span><span class="tag tag-default">Tools</span></div>
- <a href="https://github.com/ling-qian/openclaw-dev-workflows" class="proj-link" target="_blank" onclick="event.stopPropagation()" data-i18n="proj_view">查看 →</a>
- </div>
-
- <div class="project-card" onclick="window.open('https://github.com/ling-qian/ling-qian.github.io','_blank')">
- <div class="proj-name"><span class="proj-icon">🌐</span> ling-qian.github.io</div>
- <div class="proj-desc" data-i18n="proj8_desc">个人在线简历网站：暗色主题、粒子动画、滚动视差、GitHub 数据实时展示</div>
- <div class="proj-stats"><span>⭐ 0</span><span>📡 HTML</span><span>📅 2026-06</span></div>
- <div><span class="tag tag-purple">HTML/CSS</span><span class="tag tag-blue">JS Animation</span><span class="tag tag-default">Portfolio</span></div>
- <a href="https://github.com/ling-qian/ling-qian.github.io" class="proj-link" target="_blank" onclick="event.stopPropagation()" data-i18n="proj_view">查看 →</a>
- </div>
-
+ <div class="project-grid" id="projectGrid">
+ <!-- Projects rendered dynamically by JS -->
  </div>
 </div>
 
@@ -479,58 +466,43 @@ code, .mono { font-family: 'JetBrains Mono', monospace; }
  </div>
 </div>
 
-<!-- ═══ 产品作品 ═══ -->
-<div class="section">
- <div class="section-title" data-i18n="sec_portfolio">📁 产品设计作品</div>
- <div class="grid-2">
- <a href="https://ling-qian.github.io/prd/html/login/" target="_blank" class="grid-item" style="text-decoration:none;color:inherit">
- <strong>🔐 <span data-i18n="portfolio_login">登录 / 注册页面</span></strong>
- <p data-i18n="portfolio_login_desc">HTML/CSS 原型设计 · 2016</p>
- </a>
- <a href="https://ling-qian.github.io/prd/html/shopping/start.html" target="_blank" class="grid-item" style="text-decoration:none;color:inherit">
- <strong>🛒 <span data-i18n="portfolio_shopping">购物商场原型</span></strong>
- <p data-i18n="portfolio_shopping_desc">产品设计原型（Axure） · 2017</p>
- </a>
- </div>
-</div>
-
 <!-- ═══ 技能 ═══ -->
 <div class="section" id="skills">
  <div class="section-title" data-i18n="sec_skills">🛠 技能专长</div>
  <div class="grid-2">
  <div>
  <div class="skill-bar-wrap">
- <div class="skill-bar-label"><span>AI / LLM</span><span>95%</span></div>
+ <div class="skill-bar-label"><span>AI / LLM</span><span>精通</span></div>
  <div class="skill-bar-track"><div class="skill-bar-fill fill-blue" data-width="95"></div></div>
  </div>
  <div class="skill-bar-wrap">
- <div class="skill-bar-label"><span data-i18n="skill_agent">Agent 框架</span><span>90%</span></div>
+ <div class="skill-bar-label"><span data-i18n="skill_agent">Agent 框架</span><span>精通</span></div>
  <div class="skill-bar-track"><div class="skill-bar-fill fill-purple" data-width="90"></div></div>
  </div>
  <div class="skill-bar-wrap">
- <div class="skill-bar-label"><span data-i18n="skill_multi">多代理编排</span><span>88%</span></div>
+ <div class="skill-bar-label"><span data-i18n="skill_multi">多代理编排</span><span>熟练</span></div>
  <div class="skill-bar-track"><div class="skill-bar-fill fill-purple" data-width="88"></div></div>
  </div>
  <div class="skill-bar-wrap">
- <div class="skill-bar-label"><span>Prompt Engineering</span><span>92%</span></div>
+ <div class="skill-bar-label"><span>Prompt Engineering</span><span>精通</span></div>
  <div class="skill-bar-track"><div class="skill-bar-fill fill-blue" data-width="92"></div></div>
  </div>
  </div>
  <div>
  <div class="skill-bar-wrap">
- <div class="skill-bar-label"><span>Python</span><span>90%</span></div>
+ <div class="skill-bar-label"><span>Python</span><span>精通</span></div>
  <div class="skill-bar-track"><div class="skill-bar-fill fill-green" data-width="90"></div></div>
  </div>
  <div class="skill-bar-wrap">
- <div class="skill-bar-label"><span>Databricks/Spark</span><span>85%</span></div>
+ <div class="skill-bar-label"><span>Databricks/Spark</span><span>熟练</span></div>
  <div class="skill-bar-track"><div class="skill-bar-fill fill-green" data-width="85"></div></div>
  </div>
  <div class="skill-bar-wrap">
- <div class="skill-bar-label"><span data-i18n="skill_product">产品 &amp; 设计</span><span>88%</span></div>
+ <div class="skill-bar-label"><span data-i18n="skill_product">产品 &amp; 设计</span><span>熟练</span></div>
  <div class="skill-bar-track"><div class="skill-bar-fill fill-orange" data-width="88"></div></div>
  </div>
  <div class="skill-bar-wrap">
- <div class="skill-bar-label"><span data-i18n="skill_frontend">前端开发</span><span>82%</span></div>
+ <div class="skill-bar-label"><span data-i18n="skill_frontend">前端开发</span><span>熟练</span></div>
  <div class="skill-bar-track"><div class="skill-bar-fill fill-orange" data-width="82"></div></div>
  </div>
  </div>
@@ -592,9 +564,10 @@ zh: {
  hero_name: '零骞',
  hero_title: 'AI 研发工程师 · 产品基础设施',
  hero_location: '深圳', hero_age: '38岁',
+ hero_phone: '135****6412',
  // Overview
  sec_overview: '🎯 概述',
- overview_text: '互联网行业深耕 <strong class="counter" data-target="14">0</strong>+ 年，从移动端开发 → 前端架构 → 产品经理 → AI 研发工程师。现专注 LLM 驱动的智能产品基础设施：<strong>Agent 框架 · 持久化记忆 · 数据闭环 · 多代理编排</strong>。擅长全链路产品规划，具备跨部门协同领导力。',
+ overview_text: '互联网行业深耕 <span class="counter" data-target="14">0</span>+ 年，从移动端开发 → 前端架构 → 产品经理 → AI 研发工程师。现专注 LLM 驱动的智能产品基础设施：<strong>Agent 框架 · 持久化记忆 · 数据闭环 · 多代理编排</strong>。擅长全链路产品规划，具备跨部门协同领导力。',
  tag_product_ux: '产品设计 & 用户体验', tag_cross_dept: '跨部门协同', tag_data_driven: '数据驱动决策',
  // Experience
  sec_experience: '💼 工作经历',
@@ -618,6 +591,7 @@ zh: {
  // Projects
  sec_projects: '📚 GitHub 项目精选',
  contrib_label: '2026 贡献热力图', contrib_less: 'Less', contrib_more: 'More',
+ contrib_loading: '正在加载真实数据…',
  proj1_desc: 'OpenClaw 学习小程序：AI 驱动的学习路径规划、知识卡片生成、互动测验系统',
  proj2_desc: 'OpenClaw 企业级方案：安全审计、渗透测试、事件响应、客服自动化四大商业套件',
  proj3_desc: '微信获客自动化技能：AI 驱动的客户线索挖掘、对话管理与转化追踪',
@@ -638,10 +612,6 @@ zh: {
  ai_enterprise: '企业级方案', ai_enterprise_desc: 'OpenClaw Enterprise · 安全审计 · CRM 自动化 · 商业套件',
  ai_data: '数据基础设施', ai_data_desc: 'Databricks/Spark · AWS S3 · SQL · Python FastAPI · ETL 管道',
  ai_product: '产品分析', ai_product_desc: '用户行为分析 · Amplitude · OKR · A/B 测试 · 数据驱动迭代',
- // Portfolio
- sec_portfolio: '📁 产品设计作品',
- portfolio_login: '登录 / 注册页面', portfolio_login_desc: 'HTML/CSS 原型设计 · 2016',
- portfolio_shopping: '购物商场原型', portfolio_shopping_desc: '产品设计原型（Axure） · 2017',
  // Skills
  sec_skills: '🛠 技能专长',
  skill_agent: 'Agent 框架', skill_multi: '多代理编排',
@@ -657,10 +627,10 @@ zh: {
  footer_text: '© 2026 零骞 · 在线简历 · ', footer_source: '源码',
  // Typewriter
  typewriter_phrases: [
-  '从交互设计到 LLM 产品化，14 年跨领域实践经验',
-  '构建 AI Agent 的基础设施，而非玩具',
-  '让数据闭环驱动产品进化',
-  '持久化记忆 × 多代理编排 = 可演化的 AI 系统',
+ '从交互设计到 LLM 产品化，14 年跨领域实践经验',
+ '构建 AI Agent 的基础设施，而非玩具',
+ '让数据闭环驱动产品进化',
+ '持久化记忆 × 多代理编排 = 可演化的 AI 系统',
  ],
 },
 en: {
@@ -671,9 +641,10 @@ en: {
  hero_name: 'Ling Qian',
  hero_title: 'AI R&D Engineer · Product Infrastructure',
  hero_location: 'Shenzhen', hero_age: 'Age 38',
+ hero_phone: '135****6412',
  // Overview
  sec_overview: '🎯 Overview',
- overview_text: '<strong class="counter" data-target="14">0</strong>+ years in internet industry: Mobile Dev → Frontend Arch → Product Manager → AI R&D Engineer. Now focused on LLM-driven intelligent product infrastructure: <strong>Agent Framework · Persistent Memory · Data Loop · Multi-Agent Orchestration</strong>. Skilled in full-stack product planning with cross-functional leadership.',
+ overview_text: '<span class="counter" data-target="14">0</span>+ years in internet industry: Mobile Dev → Frontend Arch → Product Manager → AI R&D Engineer. Now focused on LLM-driven intelligent product infrastructure: <strong>Agent Framework · Persistent Memory · Data Loop · Multi-Agent Orchestration</strong>. Skilled in full-stack product planning with cross-functional leadership.',
  tag_product_ux: 'Product Design & UX', tag_cross_dept: 'Cross-functional', tag_data_driven: 'Data-Driven Decisions',
  // Experience
  sec_experience: '💼 Work Experience',
@@ -697,6 +668,7 @@ en: {
  // Projects
  sec_projects: '📚 GitHub Projects',
  contrib_label: '2026 Contribution Heatmap', contrib_less: 'Less', contrib_more: 'More',
+ contrib_loading: 'Loading real data…',
  proj1_desc: 'OpenClaw Learning Mini Program: AI-driven learning path planning, knowledge card generation, interactive quiz system',
  proj2_desc: 'OpenClaw Enterprise Suite: Security audit, penetration testing, incident response, customer service automation',
  proj3_desc: 'WeChat Lead Generation Skill: AI-driven customer lead mining, conversation management & conversion tracking',
@@ -717,16 +689,12 @@ en: {
  ai_enterprise: 'Enterprise Solutions', ai_enterprise_desc: 'OpenClaw Enterprise · Security Audit · CRM Automation · Business Suite',
  ai_data: 'Data Infrastructure', ai_data_desc: 'Databricks/Spark · AWS S3 · SQL · Python FastAPI · ETL Pipeline',
  ai_product: 'Product Analytics', ai_product_desc: 'User Behavior Analysis · Amplitude · OKR · A/B Testing · Data-Driven Iteration',
- // Portfolio
- sec_portfolio: '📁 Product Design Works',
- portfolio_login: 'Login / Registration Page', portfolio_login_desc: 'HTML/CSS Prototype · 2016',
- portfolio_shopping: 'Shopping Mall Prototype', portfolio_shopping_desc: 'Product Prototype (Axure) · 2017',
  // Skills
  sec_skills: '🛠 Skills & Expertise',
  skill_agent: 'Agent Frameworks', skill_multi: 'Multi-Agent',
  skill_product: 'Product & Design', skill_frontend: 'Frontend Dev',
  tag_memory_sys: 'Memory System',
- lang_native: 'Mandarin Native', lang_cantonese: 'Cantonese Proficient', lang_english: 'English Good',
+ lang_native: 'Mandarin · Native', lang_cantonese: 'Cantonese · Proficient', lang_english: 'English · Working Proficiency',
  // Education
  sec_education: '🎓 Education',
  edu1_school: 'Shanghai Jiao Tong University (Continuing Education)', edu1_desc: 'Bachelor (Part-time) · Business Administration<br>Feb 2014 — Jan 2017',
@@ -736,10 +704,10 @@ en: {
  footer_text: '© 2026 Ling Qian · Online Resume · ', footer_source: 'Source',
  // Typewriter
  typewriter_phrases: [
-  'From interaction design to LLM productization — 14 years cross-domain experience',
-  'Building AI Agent infrastructure, not toys',
-  'Data feedback loops driving product evolution',
-  'Persistent Memory × Multi-Agent Orchestration = Evolvable AI Systems',
+ 'From interaction design to LLM productization — 14 years cross-domain experience',
+ 'Building AI Agent infrastructure, not toys',
+ 'Data feedback loops driving product evolution',
+ 'Persistent Memory × Multi-Agent Orchestration = Evolvable AI Systems',
  ],
 }
 };
@@ -753,22 +721,38 @@ function applyLang(lang) {
  document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
  const dict = I18N[lang];
 
- // Update all data-i18n elements
+ // Update all data-i18n elements (but NOT counters inside i18n strings)
  document.querySelectorAll('[data-i18n]').forEach(el => {
-  const key = el.getAttribute('data-i18n');
-  if (dict[key] !== undefined) {
-   // Preserve counter data-target from original
-   el.innerHTML = dict[key];
-  }
+ const key = el.getAttribute('data-i18n');
+ if (dict[key] !== undefined) {
+ // Save existing counter data-target values before replacing
+ const oldCounters = el.querySelectorAll('.counter[data-target]');
+ const savedTargets = [];
+ oldCounters.forEach(c => savedTargets.push({el: c, target: c.getAttribute('data-target')}));
+ 
+ el.innerHTML = dict[key];
+ 
+ // Restore counter data-target on new counters
+ const newCounters = el.querySelectorAll('.counter');
+ newCounters.forEach((c, i) => {
+ if (savedTargets[i]) {
+ c.setAttribute('data-target', savedTargets[i].target);
+ c.dataset.counted = '';
+ }
+ });
+ }
  });
 
  // Update lang toggle buttons
  document.querySelectorAll('.lang-btn').forEach(btn => {
-  btn.classList.toggle('active', btn.dataset.lang === lang);
+ btn.classList.toggle('active', btn.dataset.lang === lang);
  });
 
  // Restart typewriter with new language phrases
  restartTypewriter();
+ 
+ // Re-observe counters for animation
+ setTimeout(observeCounters, 100);
 }
 
 // ── Lang Toggle Buttons ──
@@ -776,12 +760,24 @@ document.querySelectorAll('.lang-btn').forEach(btn => {
  btn.addEventListener('click', () => applyLang(btn.dataset.lang));
 });
 
+// ── Phone Obfuscation ──
+document.querySelectorAll('.phone-reveal').forEach(el => {
+ el.addEventListener('click', () => {
+ el.textContent = el.dataset.full || el.textContent;
+ el.style.cursor = 'default';
+ el.style.borderBottom = 'none';
+ });
+});
+
 // ── Particle Background ──
 (function(){
+ // Respect reduced motion preference
+ if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+ 
  const canvas = document.getElementById('particles');
  const ctx = canvas.getContext('2d');
  let particles = [];
- const PARTICLE_COUNT = 60;
+ const PARTICLE_COUNT = 40; // Reduced from 60 for perf
 
  function resize(){
  canvas.width = window.innerWidth;
@@ -818,17 +814,19 @@ document.querySelectorAll('.lang-btn').forEach(btn => {
  function animate(){
  ctx.clearRect(0,0,canvas.width,canvas.height);
  particles.forEach(p => { p.update(); p.draw(); });
- // Draw connections
+ // Draw connections (spatial hash for perf)
+ const maxDist = 150;
  for(let i=0; i<particles.length; i++){
  for(let j=i+1; j<particles.length; j++){
  const dx = particles[i].x - particles[j].x;
  const dy = particles[i].y - particles[j].y;
- const dist = Math.sqrt(dx*dx + dy*dy);
- if(dist < 150){
+ const distSq = dx*dx + dy*dy;
+ if(distSq < maxDist * maxDist){
+ const dist = Math.sqrt(distSq);
  ctx.beginPath();
  ctx.moveTo(particles[i].x, particles[i].y);
  ctx.lineTo(particles[j].x, particles[j].y);
- ctx.strokeStyle = `rgba(88,166,255,${.08 * (1 - dist/150)})`;
+ ctx.strokeStyle = `rgba(88,166,255,${.08 * (1 - dist/maxDist)})`;
  ctx.lineWidth = .5;
  ctx.stroke();
  }
@@ -854,24 +852,24 @@ function restartTypewriter() {
  function type(){
  const current = phrases[phraseIdx];
  if(!isDeleting){
-  el.textContent = current.substring(0, charIdx + 1);
-  charIdx++;
-  if(charIdx === current.length){
-  isDeleting = true;
-  typewriterTimer = setTimeout(type, 2500);
-  return;
-  }
-  typewriterTimer = setTimeout(type, 60);
+ el.textContent = current.substring(0, charIdx + 1);
+ charIdx++;
+ if(charIdx === current.length){
+ isDeleting = true;
+ typewriterTimer = setTimeout(type, 2500);
+ return;
+ }
+ typewriterTimer = setTimeout(type, 60);
  } else {
-  el.textContent = current.substring(0, charIdx - 1);
-  charIdx--;
-  if(charIdx === 0){
-  isDeleting = false;
-  phraseIdx = (phraseIdx + 1) % phrases.length;
-  typewriterTimer = setTimeout(type, 400);
-  return;
-  }
-  typewriterTimer = setTimeout(type, 30);
+ el.textContent = current.substring(0, charIdx - 1);
+ charIdx--;
+ if(charIdx === 0){
+ isDeleting = false;
+ phraseIdx = (phraseIdx + 1) % phrases.length;
+ typewriterTimer = setTimeout(type, 400);
+ return;
+ }
+ typewriterTimer = setTimeout(type, 30);
  }
  }
  typewriterTimer = setTimeout(type, 800);
@@ -879,15 +877,19 @@ function restartTypewriter() {
 
 // ── Scroll Reveal ──
 (function(){
+ if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+ document.querySelectorAll('.section').forEach(s => s.classList.add('visible'));
+ return;
+ }
  const observer = new IntersectionObserver((entries) => {
  entries.forEach(entry => {
  if(entry.isIntersecting){
-  entry.target.classList.add('visible');
-  // Animate skill bars inside
-  entry.target.querySelectorAll('.skill-bar-fill').forEach(bar => {
-  const w = bar.getAttribute('data-width');
-  if(w) setTimeout(() => bar.style.width = w + '%', 200);
-  });
+ entry.target.classList.add('visible');
+ // Animate skill bars inside
+ entry.target.querySelectorAll('.skill-bar-fill').forEach(bar => {
+ const w = bar.getAttribute('data-width');
+ if(w) setTimeout(() => bar.style.width = w + '%', 200);
+ });
  }
  });
  }, { threshold: .15 });
@@ -896,66 +898,147 @@ function restartTypewriter() {
 })();
 
 // ── Counter Animation ──
-(function(){
- const observer = new IntersectionObserver((entries) => {
+const counterObserver = new IntersectionObserver((entries) => {
  entries.forEach(entry => {
  if(entry.isIntersecting){
-  const el = entry.target;
-  const target = parseInt(el.getAttribute('data-target'));
-  if(!target || el.dataset.counted) return;
-  el.dataset.counted = '1';
-  let current = 0;
-  const step = () => {
-  current += Math.ceil(target / 20);
-  if(current >= target){ el.textContent = target; return; }
-  el.textContent = current;
-  requestAnimationFrame(step);
-  };
-  step();
+ const el = entry.target;
+ const target = parseInt(el.getAttribute('data-target'));
+ if(!target || el.dataset.counted) return;
+ el.dataset.counted = '1';
+ let current = 0;
+ const step = () => {
+ current += Math.ceil(target / 20);
+ if(current >= target){ el.textContent = target; return; }
+ el.textContent = current;
+ requestAnimationFrame(step);
+ };
+ step();
  }
  });
- }, { threshold: .5 });
+}, { threshold: .5 });
 
- function observeCounters() {
- document.querySelectorAll('.counter').forEach(c => observer.observe(c));
+function observeCounters() {
+ document.querySelectorAll('.counter[data-target]').forEach(c => {
+ c.dataset.counted = '';
+ counterObserver.observe(c);
+ });
+}
+observeCounters();
+
+// ── GitHub API: Dynamic Projects ──
+const PROJECTS = [
+ { name: 'openclaw-learning-miniprogram', icon: '🎓', descKey: 'proj1_desc', tags: ['Mini Program','AI Learning','JavaScript'], tagClasses: ['tag-blue','tag-blue','tag-green'] },
+ { name: 'openclaw-enterprise', icon: '📦', descKey: 'proj2_desc', tags: ['Agent','Enterprise','Security'], tagClasses: ['tag-blue','tag-blue','tag-orange'] },
+ { name: 'wechat-lead-generation', icon: '💬', descKey: 'proj3_desc', tags: ['AI','WeChat','Lead Gen'], tagClasses: ['tag-blue','tag-green','tag-default'] },
+ { name: 'openclaw-skills', icon: '🧩', descKey: 'proj4_desc', tags: ['Skills','Python','Agent'], tagClasses: ['tag-purple','tag-green','tag-default'] },
+ { name: 'CowAgent', icon: '🐄', descKey: 'proj5_desc', tags: ['Multi-Agent','Orchestration','Python'], tagClasses: ['tag-blue','tag-purple','tag-green'] },
+ { name: 'opc-openclaw-integration', icon: '🔗', descKey: 'proj6_desc', tags: ['OPC','CI/CD','Integration'], tagClasses: ['tag-purple','tag-green','tag-default'] },
+ { name: 'openclaw-dev-workflows', icon: '⚙️', descKey: 'proj7_desc', tags: ['DevOps','Monitoring','Tools'], tagClasses: ['tag-blue','tag-orange','tag-default'] },
+ { name: 'ling-qian.github.io', icon: '🌐', descKey: 'proj8_desc', tags: ['HTML/CSS','JS Animation','Portfolio'], tagClasses: ['tag-purple','tag-blue','tag-default'] },
+];
+
+async function fetchGitHubProjects() {
+ const dict = I18N[currentLang];
+ const grid = document.getElementById('projectGrid');
+ 
+ try {
+ const resp = await fetch('https://api.github.com/users/ling-qian/repos?per_page=100&sort=updated');
+ const repos = await resp.json();
+ const repoMap = {};
+ repos.forEach(r => repoMap[r.name] = r);
+ 
+ grid.innerHTML = PROJECTS.map(p => {
+ const repo = repoMap[p.name] || {};
+ const stars = repo.stargazers_count != null ? repo.stargazers_count : '?';
+ const lang = repo.language || '?';
+ const updatedAt = repo.pushed_at ? repo.pushed_at.slice(0,7) : '?';
+ 
+ return `<div class="project-card" onclick="window.open('https://github.com/ling-qian/${p.name}','_blank')">
+ <div class="proj-name"><span class="proj-icon">${p.icon}</span> ${p.name}</div>
+ <div class="proj-desc" data-i18n="${p.descKey}">${dict[p.descKey] || p.descKey}</div>
+ <div class="proj-stats"><span>⭐ ${stars}</span><span>📡 ${lang}</span><span>📅 ${updatedAt}</span></div>
+ <div>${p.tags.map((t,i) => `<span class="tag ${p.tagClasses[i]}">${t}</span>`).join('')}</div>
+ <a href="https://github.com/ling-qian/${p.name}" class="proj-link" target="_blank" onclick="event.stopPropagation()" data-i18n="proj_view">${dict.proj_view || '查看 →'}</a>
+ </div>`;
+ }).join('');
+ } catch(e) {
+ // Fallback: render without API data
+ grid.innerHTML = PROJECTS.map(p => {
+ return `<div class="project-card" onclick="window.open('https://github.com/ling-qian/${p.name}','_blank')">
+ <div class="proj-name"><span class="proj-icon">${p.icon}</span> ${p.name}</div>
+ <div class="proj-desc" data-i18n="${p.descKey}">${dict[p.descKey] || p.descKey}</div>
+ <div>${p.tags.map((t,i) => `<span class="tag ${p.tagClasses[i]}">${t}</span>`).join('')}</div>
+ <a href="https://github.com/ling-qian/${p.name}" class="proj-link" target="_blank" onclick="event.stopPropagation()" data-i18n="proj_view">${dict.proj_view || '查看 →'}</a>
+ </div>`;
+ }).join('');
  }
- // Observe initially + after lang switch
- observeCounters();
- const origApply = applyLang;
- // Re-observe counters after language switch
- const _applyLang = applyLang;
- window.applyLang = function(lang) {
-  _applyLang(lang);
-  setTimeout(() => {
-  document.querySelectorAll('.counter').forEach(c => {
-   c.dataset.counted = '';
-   observer.observe(c);
-  });
-  }, 100);
- };
-})();
+}
 
-// ── Contribution Heatmap (simulated) ──
-(function(){
+// ── GitHub API: Contribution Heatmap ──
+async function fetchContributionHeatmap() {
  const graph = document.getElementById('contribGraph');
- const levels = [0,1,2,3,4];
- // Generate 52×7 cells
+ const loading = document.getElementById('contribLoading');
+ 
+ try {
+ const resp = await fetch('https://api.github.com/users/ling-qian/events?per_page=100');
+ const events = await resp.json();
+ 
+ // Build a map of date -> contribution count
+ const contribMap = {};
+ events.forEach(e => {
+ if (e.type === 'PushEvent' || e.type === 'PullRequestEvent' || e.type === 'IssuesEvent' || e.type === 'CreateEvent') {
+ const date = e.created_at.slice(0,10);
+ contribMap[date] = (contribMap[date] || 0) + 1;
+ }
+ });
+ 
+ // Generate 52×7 grid (past year)
+ graph.innerHTML = '';
+ const now = new Date();
+ for(let week=0; week<52; week++){
+ for(let day=0; day<7; day++){
+ const d = new Date(now);
+ d.setDate(d.getDate() - ((51 - week) * 7 + (6 - day)));
+ const key = d.toISOString().slice(0,10);
+ const count = contribMap[key] || 0;
+ const cell = document.createElement('div');
+ cell.className = 'contrib-cell';
+ let level = 0;
+ if(count >= 4) level = 4;
+ else if(count >= 3) level = 3;
+ else if(count >= 2) level = 2;
+ else if(count >= 1) level = 1;
+ if(level > 0) cell.classList.add('contrib-' + level);
+ cell.title = `${key}: ${count} events`;
+ graph.appendChild(cell);
+ }
+ }
+ 
+ loading.style.display = 'none';
+ graph.style.display = 'grid';
+ } catch(e) {
+ // Fallback: simulated heatmap with disclaimer
+ loading.textContent = currentLang === 'zh' ? '数据加载失败，显示模拟数据' : 'Data load failed, showing simulated data';
+ 
+ graph.innerHTML = '';
  for(let week=0; week<52; week++){
  for(let day=0; day<7; day++){
  const cell = document.createElement('div');
  cell.className = 'contrib-cell';
- // More activity in recent weeks
  const recency = week > 35 ? .6 : week > 20 ? .35 : .15;
  const rand = Math.random();
  let level = 0;
  if(rand < recency) level = Math.ceil(Math.random() * 4);
  if(level > 0) cell.classList.add('contrib-' + level);
- // Add tooltip
- cell.title = `Week ${week+1}, Day ${day+1}`;
+ cell.title = `Week ${week+1}, Day ${day+1} (simulated)`;
  graph.appendChild(cell);
  }
  }
-})();
+ 
+ loading.style.display = 'none';
+ graph.style.display = 'grid';
+ }
+}
 
 // ── Smooth Scroll for Nav ──
 document.querySelectorAll('.nav a[href^="#"]').forEach(a => {
@@ -983,8 +1066,10 @@ document.querySelectorAll('.nav a[href^="#"]').forEach(a => {
  });
 })();
 
-// ── Init: apply saved language ──
+// ── Init ──
 applyLang(currentLang);
+fetchGitHubProjects();
+fetchContributionHeatmap();
 </script>
 </body>
 </html>
