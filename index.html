@@ -11,7 +11,7 @@
 <meta property="og:description" content="14年互联网经验，专注 LLM 驱动的智能产品基础设施" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://ling-qian.github.io/" />
-<meta property="og:image" content="https://ling-qian.github.io/og-avatar.png" />
+<meta property="og:image" content="https://ling-qian.github.io/avatar.jpg" />
 <meta name="twitter:card" content="summary_large_image" />
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧠</text></svg>" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -135,8 +135,60 @@ code, .mono { font-family: 'JetBrains Mono', monospace; }
 }
 .hero-main .title { font-size:1.05rem; color:var(--accent); margin:4px 0 8px; font-weight:500; }
 .hero-main .tagline { font-size:.92rem; color:var(--text-secondary); max-width:500px; }
+.hero-avatar {
+ width:120px; height:120px; border-radius:50%; object-fit:cover;
+ border:3px solid var(--accent); box-shadow:0 0 24px var(--accent-glow);
+ flex-shrink:0; transition:transform var(--transition), box-shadow var(--transition);
+}
+.hero-avatar:hover { transform:scale(1.05); box-shadow:0 0 32px var(--accent-glow); }
 .hero-meta { text-align:right; font-size:.88rem; color:var(--text-secondary); line-height:1.9; white-space:nowrap; }
 .hero-meta a { font-size:.85rem; }
+
+/* ─── Highlight Metrics ─── */
+.metrics-bar {
+ display:flex; gap:24px; margin-top:20px; padding-top:20px;
+ border-top:1px solid var(--border); flex-wrap:wrap;
+}
+.metric-item { text-align:center; min-width:80px; }
+.metric-num { font-size:1.6rem; font-weight:700; color:var(--accent); font-family:'JetBrains Mono',monospace; }
+.metric-label { font-size:.75rem; color:var(--text-tertiary); margin-top:2px; }
+
+/* ─── CTA Buttons ─── */
+.cta-bar { display:flex; gap:12px; margin-top:20px; flex-wrap:wrap; }
+.btn {
+ display:inline-flex; align-items:center; gap:8px;
+ padding:10px 22px; border-radius:8px; font-size:.88rem; font-weight:600;
+ cursor:pointer; border:none; font-family:inherit;
+ transition: all var(--transition); text-decoration:none;
+}
+.btn-primary {
+ background:linear-gradient(135deg, #1f6feb, var(--accent)); color:#fff;
+ box-shadow:0 2px 12px rgba(31,111,235,.3);
+}
+.btn-primary:hover { transform:translateY(-2px); box-shadow:0 4px 20px rgba(31,111,235,.5); text-decoration:none; color:#fff; }
+.btn-secondary {
+ background:var(--surface-2); color:var(--text); border:1px solid var(--border);
+}
+.btn-secondary:hover { border-color:var(--accent); color:var(--accent); transform:translateY(-2px); text-decoration:none; }
+
+/* ─── PDF Download Button in Nav ─── */
+.nav-cta {
+ padding:5px 14px; border-radius:6px; font-size:.8rem; font-weight:600;
+ background:linear-gradient(135deg, #1f6feb, var(--accent)); color:#fff;
+ border:none; cursor:pointer; font-family:inherit;
+ transition: all var(--transition); white-space:nowrap;
+}
+.nav-cta:hover { transform:translateY(-1px); box-shadow:0 2px 10px rgba(31,111,235,.4); }
+
+/* ─── Contact CTA Section ─── */
+.cta-section {
+ background:linear-gradient(135deg, rgba(88,166,255,.08) 0%, rgba(188,140,255,.06) 100%);
+ border:1px solid rgba(88,166,255,.2);
+ border-radius:var(--radius); padding:28px 36px; margin-bottom:20px;
+ text-align:center;
+}
+.cta-section h3 { font-size:1.1rem; margin-bottom:8px; }
+.cta-section p { font-size:.88rem; color:var(--text-secondary); margin-bottom:16px; }
 
 /* ─── Status Indicator ─── */
 .status { display:inline-flex; align-items:center; gap:6px; font-size:.82rem; color:var(--green); margin-bottom:10px; }
@@ -272,11 +324,12 @@ code, .mono { font-family: 'JetBrains Mono', monospace; }
 
 /* ─── Print ─── */
 @media print {
- #particles, .nav, .lang-toggle { display: none !important; }
+ #particles, .nav, .lang-toggle, .cta-bar, .cta-section, .nav-cta, .btn, .metrics-bar { display: none !important; }
  body { background: #fff; color: #1a1a1a; }
  .page { padding: 0; max-width: 100%; }
  .hero { border: 1px solid #ddd; background: #f8f8f8; break-inside: avoid; }
  .hero::before { display: none; }
+ .hero-avatar { width:80px; height:80px; border-color:#0366d6; box-shadow:none; }
  .hero-main h1 { background: none; -webkit-text-fill-color: #1a1a1a; }
  .section { opacity: 1; transform: none; border: 1px solid #ddd; background: #fff; break-inside: avoid; }
  .section:hover { border-color: #ddd; }
@@ -325,6 +378,7 @@ code, .mono { font-family: 'JetBrains Mono', monospace; }
  <a href="#projects" data-i18n="nav_projects">项目</a>
  <a href="#skills" data-i18n="nav_skills">技能</a>
  <a href="#education" data-i18n="nav_education">教育</a>
+ <button class="nav-cta" onclick="downloadPDF()" title="下载 PDF 简历">📄 PDF</button>
  <div class="lang-toggle">
  <button class="lang-btn active" data-lang="zh">中</button>
  <button class="lang-btn" data-lang="en">EN</button>
@@ -336,12 +390,26 @@ code, .mono { font-family: 'JetBrains Mono', monospace; }
 <!-- ═══ HERO ═══ -->
 <div class="hero" id="about">
  <div class="hero-content">
- <div class="hero-main">
+ <div style="display:flex;align-items:center;gap:24px;flex-shrink:0">
+ <img src="avatar.jpg" alt="零骞" class="hero-avatar" />
+ </div>
+ <div class="hero-main" style="flex:1">
  <div class="status"><span class="status-dot"></span><span data-i18n="status_text">Open to Work</span></div>
  <h1 data-i18n="hero_name">零骞</h1>
  <div class="title" data-i18n="hero_title">AI 研发工程师 · 产品基础设施</div>
  <div class="tagline">
  <span class="typewriter" id="typewriter"></span><span class="typewriter-cursor"></span>
+ </div>
+ <div class="metrics-bar">
+ <div class="metric-item"><div class="metric-num counter" data-target="14">0</div><div class="metric-label" data-i18n="metric_years">年经验</div></div>
+ <div class="metric-item"><div class="metric-num counter" data-target="8">0</div><div class="metric-label" data-i18n="metric_projects">开源项目</div></div>
+ <div class="metric-item"><div class="metric-num">4+</div><div class="metric-label" data-i18n="metric_llm">年 LLM 实战</div></div>
+ <div class="metric-item"><div class="metric-num">60%</div><div class="metric-label" data-i18n="metric_efficiency">效率提升</div></div>
+ </div>
+ <div class="cta-bar">
+ <a href="mailto:296928959@qq.com" class="btn btn-primary" data-i18n="cta_contact">📧 联系我</a>
+ <button onclick="downloadPDF()" class="btn btn-secondary" data-i18n="cta_pdf">📄 下载 PDF 简历</button>
+ <a href="https://github.com/ling-qian" target="_blank" class="btn btn-secondary">🐙 GitHub</a>
  </div>
  </div>
  <div class="hero-meta">
@@ -544,6 +612,17 @@ code, .mono { font-family: 'JetBrains Mono', monospace; }
  </div>
 </div>
 
+<!-- ═══ Contact CTA ═══ -->
+<div class="cta-section">
+ <h3 data-i18n="cta_title">🤝 期待与您共事</h3>
+ <p data-i18n="cta_desc">如果您正在寻找一位能从 0 到 1 构建 AI 产品基础设施的工程师，欢迎联系我。</p>
+ <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+ <a href="mailto:296928959@qq.com" class="btn btn-primary" data-i18n="cta_email">✉️ 发送邮件</a>
+ <button onclick="downloadPDF()" class="btn btn-secondary" data-i18n="cta_pdf2">📄 下载 PDF 简历</button>
+ <a href="https://github.com/ling-qian" target="_blank" class="btn btn-secondary">🐙 GitHub 主页</a>
+ </div>
+</div>
+
 <!-- ═══ Footer ═══ -->
 <div class="footer">
  <span data-i18n="footer_text">© 2026 零骞 · 在线简历 · </span><a href="https://github.com/ling-qian/ling-qian.github.io" target="_blank" data-i18n="footer_source">源码</a>
@@ -625,6 +704,12 @@ zh: {
  edu2_awards: '数据库三级 · 上海计算机二级（Java）· 校三等奖 · 优秀学生',
  // Footer
  footer_text: '© 2026 零骞 · 在线简历 · ', footer_source: '源码',
+ // Metrics
+ metric_years: '年经验', metric_projects: '开源项目', metric_llm: '年 LLM 实战', metric_efficiency: '效率提升',
+ // CTA
+ cta_contact: '📧 联系我', cta_pdf: '📄 下载 PDF 简历',
+ cta_title: '🤝 期待与您共事', cta_desc: '如果您正在寻找一位能从 0 到 1 构建 AI 产品基础设施的工程师，欢迎联系我。',
+ cta_email: '✉️ 发送邮件', cta_pdf2: '📄 下载 PDF 简历',
  // Typewriter
  typewriter_phrases: [
  '从交互设计到 LLM 产品化，14 年跨领域实践经验',
@@ -702,6 +787,12 @@ en: {
  edu2_awards: 'Database Level 3 · Shanghai Computer Level 2 (Java) · College 3rd Prize · Outstanding Student',
  // Footer
  footer_text: '© 2026 Ling Qian · Online Resume · ', footer_source: 'Source',
+ // Metrics
+ metric_years: 'Yrs Exp', metric_projects: 'Open Source', metric_llm: 'Yrs LLM', metric_efficiency: 'Efficiency Gain',
+ // CTA
+ cta_contact: '📧 Contact Me', cta_pdf: '📄 Download PDF Resume',
+ cta_title: '🤝 Let\'s Work Together', cta_desc: 'If you\'re looking for an engineer who can build AI product infrastructure from 0 to 1, I\'d love to connect.',
+ cta_email: '✉️ Send Email', cta_pdf2: '📄 Download PDF Resume',
  // Typewriter
  typewriter_phrases: [
  'From interaction design to LLM productization — 14 years cross-domain experience',
@@ -1065,6 +1156,16 @@ document.querySelectorAll('.nav a[href^="#"]').forEach(a => {
  });
  });
 })();
+
+// ── PDF Download ──
+function downloadPDF() {
+ // Use browser print-to-PDF with print stylesheet
+ const style = document.createElement('style');
+ style.textContent = '@media screen { body { opacity:1 !important; } }';
+ document.head.appendChild(style);
+ window.print();
+ // Cleanup not needed — print dialog blocks
+}
 
 // ── Init ──
 applyLang(currentLang);
