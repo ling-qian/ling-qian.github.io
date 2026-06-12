@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200..800&family=JetBrains+Mono:wght@400..700&display=swap" rel="stylesheet" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js"></script>
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 
@@ -758,36 +758,34 @@ const PROJECTS = [
 
 (async function(){
   const grid = document.getElementById('proj-grid');
+  // immediately render with local data
+  grid.innerHTML = PROJECTS.map(p =>
+    `<div class="pc r" onclick="window.open('https://github.com/ling-qian/${p.n}','_blank')">
+      <div class="top"><span class="ico">${p.i}</span><span class="nm">${p.n}</span></div>
+      <div class="desc">${p.d}</div>
+      <div class="mt"><span>📡 ${(p.t[0]||'')}</span></div>
+      <div class="pt">${p.t.map(t=>`<span>${t}</span>`).join('')}</div>
+      <div class="glow"></div>
+    </div>`
+  ).join('');
+  // try github stars
   try{
     const r = await fetch('https://api.github.com/users/ling-qian/repos?per_page=100&sort=pushed');
     const repos = await r.json();
     const map = {}; repos.forEach(re => map[re.name]=re);
-
-    grid.innerHTML = PROJECTS.map(p => {
-      const rp = map[p.n]||{};
-      return `<div class="pc r" onclick="window.open('https://github.com/ling-qian/${p.n}','_blank')">
-        <div class="top"><span class="ico">${p.i}</span><span class="nm">${p.n}</span></div>
-        <div class="desc">${p.d}</div>
-        <div class="mt"><span>⭐ ${rp.stargazers_count??0}</span><span>📡 ${rp.language||'—'}</span></div>
-        <div class="pt">${p.t.map(t=>`<span>${t}</span>`).join('')}</div>
-        <div class="glow"></div>
-      </div>`;
-    }).join('');
-  }catch(e){
-    grid.innerHTML = PROJECTS.map(p =>
-      `<div class="pc r" onclick="window.open('https://github.com/ling-qian/${p.n}','_blank')">
-        <div class="top"><span class="ico">${p.i}</span><span class="nm">${p.n}</span></div>
-        <div class="desc">${p.d}</div>
-        <div class="pt">${p.t.map(t=>`<span>${t}</span>`).join('')}</div>
-        <div class="glow"></div>
-      </div>`
-    ).join('');
-  }
+    const cards = grid.querySelectorAll('.pc');
+    PROJECTS.forEach((p,i)=>{
+      if(cards[i]){
+        const rp = map[p.n];
+        if(rp) cards[i].querySelector('.mt').innerHTML = `<span>⭐ ${rp.stargazers_count??0}</span><span>📡 ${rp.language||'—'}</span>`;
+      }
+    });
+  }catch(e){}
   setTimeout(()=>{
     document.querySelectorAll('#proj-grid .r').forEach(el => {
       if(el.getBoundingClientRect().top<window.innerHeight) el.classList.add('vis');
     });
-  }, 200);
+  }, 100);
 })();
 </script>
 </body>
